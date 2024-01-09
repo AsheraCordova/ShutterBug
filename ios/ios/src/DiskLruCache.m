@@ -82,7 +82,15 @@
   JavaIoWriter *journalWriter_;
   JavaUtilLinkedHashMap *lruEntries_;
   jint redundantOpCount_;
+  /*!
+   @brief To differentiate between old and current snapshots, each entry is given
+  a sequence number each time an edit is committed.A snapshot is stale if
+  its sequence number is not equal to its entry's sequence number.
+   */
   jlong nextSequenceNumber_;
+  /*!
+   @brief This cache uses a single background thread to evict entries.
+   */
   id<JavaUtilConcurrentExecutorService> executorService_;
   id<JavaUtilConcurrentCallable> cleanupCallable_;
 }
@@ -108,8 +116,16 @@
 
 - (void)readJournalLineWithNSString:(NSString *)line;
 
+/*!
+ @brief Computes the initial size and collects garbage as a part of opening the
+  cache.Dirty entries are assumed to be inconsistent and will be deleted.
+ */
 - (void)processJournal;
 
+/*!
+ @brief Creates a new journal that omits redundant information.This replaces the
+  current journal if it exists.
+ */
 - (void)rebuildJournal;
 
 + (void)deleteIfExistsWithJavaIoFile:(JavaIoFile *)file;
@@ -120,6 +136,10 @@
 - (void)completeEditWithAPDiskLruCache_Editor:(APDiskLruCache_Editor *)editor
                                   withBoolean:(jboolean)success;
 
+/*!
+ @brief We only rebuild the journal when it will halve the size of the journal
+  and eliminate at least 2000 ops.
+ */
 - (jboolean)journalRebuildRequired;
 
 - (void)checkNotClosed;
@@ -297,9 +317,21 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Editor_FaultHidingOutputStream)
  @public
   APDiskLruCache *this$0_;
   NSString *key_;
+  /*!
+   @brief Lengths of this entry's files.
+   */
   IOSLongArray *lengths_;
+  /*!
+   @brief True if this entry has ever been published
+   */
   jboolean readable_;
+  /*!
+   @brief The ongoing edit or null if this entry is not being edited.
+   */
   APDiskLruCache_Editor *currentEditor_;
+  /*!
+   @brief The sequence number of the most recently committed edit to this entry.
+   */
   jlong sequenceNumber_;
 }
 
@@ -308,6 +340,9 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Editor_FaultHidingOutputStream)
 
 - (NSString *)getLengths;
 
+/*!
+ @brief Set lengths using decimal numbers like "10123".
+ */
 - (void)setLengthsWithNSStringArray:(IOSObjectArray *)strings;
 
 - (JavaIoIOException *)invalidLengthsWithNSStringArray:(IOSObjectArray *)strings;

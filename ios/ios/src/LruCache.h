@@ -18,48 +18,149 @@
 
 @protocol JavaUtilMap;
 
+/*!
+ @brief Static library version of <code>r.android.util.LruCache</code>.Used to write apps
+  that run on API levels prior to 12.
+ When running on API level 12 or above,
+  this implementation is still used; it does not try to switch to the
+  framework's implementation. See the framework SDK documentation for a class
+  overview.
+ */
 @interface APLruCache : NSObject
 
 #pragma mark Public
 
+/*!
+ @param maxSize for caches that do not override 
+ <code>sizeOf</code> , this is the             maximum number of entries in the cache. For all other caches,
+              this is the maximum sum of the sizes of the entries in this
+              cache.
+ */
 - (instancetype)initWithInt:(jint)maxSize;
 
+/*!
+ @brief Returns the number of times <code>create(Object)</code> returned a value.
+ */
 - (jint)createCount;
 
+/*!
+ @brief Clear the cache, calling <code>entryRemoved</code> on each removed entry.
+ */
 - (void)evictAll;
 
+/*!
+ @brief Returns the number of values that have been evicted.
+ */
 - (jint)evictionCount;
 
+/*!
+ @brief Returns the value for <code>key</code> if it exists in the cache or can be
+  created by <code>#create</code>.If a value was returned, it is moved to the
+  head of the queue.
+ This returns null if a value is not cached and cannot
+  be created.
+ */
 - (id)getWithId:(id)key;
 
+/*!
+ @brief Returns the number of times <code>get</code> returned a value.
+ */
 - (jint)hitCount;
 
+/*!
+ @brief For caches that do not override <code>sizeOf</code>, this returns the maximum
+  number of entries in the cache.For all other caches, this returns the
+  maximum sum of the sizes of the entries in this cache.
+ */
 - (jint)maxSize;
 
+/*!
+ @brief Returns the number of times <code>get</code> returned null or required a new
+  value to be created.
+ */
 - (jint)missCount;
 
+/*!
+ @brief Caches <code>value</code> for <code>key</code>.The value is moved to the head of
+  the queue.
+ @return the previous value mapped by <code>key</code>.
+ */
 - (id)putWithId:(id)key
          withId:(id)value;
 
+/*!
+ @brief Returns the number of times <code>put</code> was called.
+ */
 - (jint)putCount;
 
+/*!
+ @brief Removes the entry for <code>key</code> if it exists.
+ @return the previous value mapped by <code>key</code>.
+ */
 - (id)removeWithId:(id)key;
 
+/*!
+ @brief For caches that do not override <code>sizeOf</code>, this returns the number
+  of entries in the cache.For all other caches, this returns the sum of
+  the sizes of the entries in this cache.
+ */
 - (jint)size;
 
+/*!
+ @brief Returns a copy of the current contents of the cache, ordered from least
+  recently accessed to most recently accessed.
+ */
 - (id<JavaUtilMap>)snapshot;
 
 - (NSString *)description;
 
 #pragma mark Protected
 
+/*!
+ @brief Called after a cache miss to compute a value for the corresponding key.
+ Returns the computed value or null if no value can be computed. The
+  default implementation returns null. 
+ <p>
+  The method is called without synchronization: other threads may access
+  the cache while this method is executing. 
+ <p>
+  If a value for <code>key</code> exists in the cache when this method returns,
+  the created value will be released with <code>entryRemoved</code> and
+  discarded. This can occur when multiple threads request the same key at
+  the same time (causing multiple values to be created), or when one thread
+  calls <code>put</code> while another is creating a value for the same key.
+ */
 - (id)createWithId:(id)key;
 
+/*!
+ @brief Called for entries that have been evicted or removed.This method is
+  invoked when a value is evicted to make space, removed by a call to 
+ <code>remove</code>, or replaced by a call to <code>put</code>.
+ The default
+  implementation does nothing. 
+ <p>
+  The method is called without synchronization: other threads may access
+  the cache while this method is executing.
+ @param evicted true if the entry is being removed to make space, false if the
+              removal was caused by a 
+ <code>put</code>  or <code>remove</code> .
+ @param newValue the new value for 
+ <code>key</code> , if it exists. If non-null, this             removal was caused by a 
+ <code>put</code> . Otherwise it was caused             by an eviction or a 
+ <code>remove</code> .
+ */
 - (void)entryRemovedWithBoolean:(jboolean)evicted
                          withId:(id)key
                          withId:(id)oldValue
                          withId:(id)newValue;
 
+/*!
+ @brief Returns the size of the entry for <code>key</code> and <code>value</code> in
+  user-defined units.The default implementation returns 1 so that size is
+  the number of entries and max size is the maximum number of entries.
+ <p>
+  An entry's size must not change while it is in the cache.
+ */
 - (jint)sizeOfWithId:(id)key
               withId:(id)value;
 

@@ -22,6 +22,9 @@
 @interface APLruCache () {
  @public
   JavaUtilLinkedHashMap *map_;
+  /*!
+   @brief Size of this cache in units.Not necessarily the number of elements.
+   */
   jint size_;
   jint maxSize_;
   jint putCount_;
@@ -31,6 +34,10 @@
   jint missCount_;
 }
 
+/*!
+ @param maxSize the maximum size of the cache before returning. May be -1 to
+              evict even 0-sized elements.
+ */
 - (void)trimToSizeWithInt:(jint)maxSize;
 
 - (jint)safeSizeOfWithId:(id)key
