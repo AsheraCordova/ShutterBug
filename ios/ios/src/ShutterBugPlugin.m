@@ -3,6 +3,11 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\ashera\shutterbug\ShutterBugPlugin.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "Context.h"
 #include "Drawable.h"
 #include "IImageDownloader.h"
@@ -12,6 +17,13 @@
 #include "J2ObjC_source.h"
 #include "ShutterBugPlugin.h"
 #include "ShutterbugManager.h"
+
+
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface ASShutterBugPlugin_Target : NSObject < ASIImageDownloader >
@@ -35,6 +47,7 @@ __attribute__((unused)) static ASShutterBugPlugin_Target *new_ASShutterBugPlugin
 __attribute__((unused)) static ASShutterBugPlugin_Target *create_ASShutterBugPlugin_Target_init(void);
 
 J2OBJC_TYPE_LITERAL_HEADER(ASShutterBugPlugin_Target)
+
 
 @implementation ASShutterBugPlugin
 
@@ -85,6 +98,8 @@ void ASShutterBugPlugin_initPlugin() {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASShutterBugPlugin)
+
+J2OBJC_NAME_MAPPING(ASShutterBugPlugin, "com.ashera.shutterbug", "AS")
 
 @implementation ASShutterBugPlugin_Target
 

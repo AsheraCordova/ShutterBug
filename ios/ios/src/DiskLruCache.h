@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\cache\DiskLruCache.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_DiskLruCache")
@@ -23,6 +24,10 @@
 @class APDiskLruCache_Editor;
 @class APDiskLruCache_Snapshot;
 @class JavaIoFile;
+@class JavaLangBoolean;
+@class JavaLangInteger;
+@class JavaLangLong;
+@class NSString;
 
 /*!
  @brief A cache that uses a bounded amount of space on a filesystem.Each cache
@@ -105,13 +110,13 @@
 /*!
  @brief Returns true if this cache has been closed.
  */
-- (jboolean)isClosed;
+- (bool)isClosed;
 
 /*!
  @brief Returns the maximum number of bytes that this cache should use to store
   its data.
  */
-- (jlong)maxSize;
+- (int64_t)maxSize;
 
 /*!
  @brief Opens the cache in <code>directory</code>, creating a cache if none exists
@@ -123,23 +128,23 @@
  @throw IOExceptionif reading or writing the cache directory fails
  */
 + (APDiskLruCache *)openWithJavaIoFile:(JavaIoFile *)directory
-                               withInt:(jint)appVersion
-                               withInt:(jint)valueCount
-                              withLong:(jlong)maxSize;
+                               withInt:(int32_t)appVersion
+                               withInt:(int32_t)valueCount
+                              withLong:(int64_t)maxSize;
 
 /*!
  @brief Drops the entry for <code>key</code> if it exists and can be removed.Entries
   actively being edited cannot be removed.
  @return true if an entry was removed.
  */
-- (jboolean)removeWithNSString:(NSString *)key;
+- (bool)removeWithNSString:(NSString *)key;
 
 /*!
  @brief Returns the number of bytes currently being used to store the values in
   this cache.This may be greater than the max size if a background
   deletion is pending.
  */
-- (jlong)size;
+- (int64_t)size;
 
 // Disallowed inherited constructors, do not use.
 
@@ -169,15 +174,16 @@ inline NSString *APDiskLruCache_get_VERSION_1(void);
 FOUNDATION_EXPORT NSString *APDiskLruCache_VERSION_1;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(APDiskLruCache, VERSION_1, NSString *)
 
-inline jlong APDiskLruCache_get_ANY_SEQUENCE_NUMBER(void);
+inline int64_t APDiskLruCache_get_ANY_SEQUENCE_NUMBER(void);
 #define APDiskLruCache_ANY_SEQUENCE_NUMBER -1LL
-J2OBJC_STATIC_FIELD_CONSTANT(APDiskLruCache, ANY_SEQUENCE_NUMBER, jlong)
+J2OBJC_STATIC_FIELD_CONSTANT(APDiskLruCache, ANY_SEQUENCE_NUMBER, int64_t)
 
-FOUNDATION_EXPORT APDiskLruCache *APDiskLruCache_openWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize);
+FOUNDATION_EXPORT APDiskLruCache *APDiskLruCache_openWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize);
 
 J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache)
 
 @compatibility_alias ComApplidiumShutterbugCacheDiskLruCache APDiskLruCache;
+
 
 #endif
 
@@ -190,6 +196,8 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache)
 
 @class APDiskLruCache_Editor;
 @class JavaIoInputStream;
+@class JavaLangInteger;
+@class NSString;
 
 /*!
  @brief A snapshot of the values for an entry.
@@ -210,12 +218,12 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache)
 /*!
  @brief Returns the unbuffered stream with the value for <code>index</code>.
  */
-- (JavaIoInputStream *)getInputStreamWithInt:(jint)index;
+- (JavaIoInputStream *)getInputStreamWithInt:(int32_t)index;
 
 /*!
  @brief Returns the string value for <code>index</code>.
  */
-- (NSString *)getStringWithInt:(jint)index;
+- (NSString *)getStringWithInt:(int32_t)index;
 
 // Disallowed inherited constructors, do not use.
 
@@ -227,6 +235,7 @@ J2OBJC_EMPTY_STATIC_INIT(APDiskLruCache_Snapshot)
 
 J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Snapshot)
 
+
 #endif
 
 #if !defined (APDiskLruCache_Editor_) && (INCLUDE_ALL_DiskLruCache || defined(INCLUDE_APDiskLruCache_Editor))
@@ -234,6 +243,8 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Snapshot)
 
 @class JavaIoInputStream;
 @class JavaIoOutputStream;
+@class JavaLangInteger;
+@class NSString;
 
 /*!
  @brief Edits the values for an entry.
@@ -258,13 +269,13 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Snapshot)
  @brief Returns the last committed value as a string, or null if no value
   has been committed.
  */
-- (NSString *)getStringWithInt:(jint)index;
+- (NSString *)getStringWithInt:(int32_t)index;
 
 /*!
  @brief Returns an unbuffered input stream to read the last committed value,
   or null if no value has been committed.
  */
-- (JavaIoInputStream *)newInputStreamWithInt:(jint)index OBJC_METHOD_FAMILY_NONE;
+- (JavaIoInputStream *)newInputStreamWithInt:(int32_t)index OBJC_METHOD_FAMILY_NONE;
 
 /*!
  @brief Returns a new unbuffered output stream to write the value at 
@@ -274,12 +285,12 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Snapshot)
  The returned output stream does not throw
   IOExceptions.
  */
-- (JavaIoOutputStream *)newOutputStreamWithInt:(jint)index OBJC_METHOD_FAMILY_NONE;
+- (JavaIoOutputStream *)newOutputStreamWithInt:(int32_t)index OBJC_METHOD_FAMILY_NONE;
 
 /*!
  @brief Sets the value at <code>index</code> to <code>value</code>.
  */
-- (void)setWithInt:(jint)index
+- (void)setWithInt:(int32_t)index
       withNSString:(NSString *)value;
 
 // Disallowed inherited constructors, do not use.
@@ -291,6 +302,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Snapshot)
 J2OBJC_EMPTY_STATIC_INIT(APDiskLruCache_Editor)
 
 J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Editor)
+
 
 #endif
 

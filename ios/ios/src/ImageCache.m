@@ -3,6 +3,11 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\cache\ImageCache.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "ActivityManager.h"
 #include "AsyncTask.h"
 #include "Bitmap.h"
@@ -22,10 +27,17 @@
 #include "java/io/IOException.h"
 #include "java/io/InputStream.h"
 #include "java/io/OutputStream.h"
+#include "java/lang/Boolean.h"
 #include "java/lang/Exception.h"
+#include "java/lang/Integer.h"
 #include "java/lang/Void.h"
 
-@class JavaIoInputStream;
+
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
@@ -45,13 +57,13 @@ J2OBJC_FIELD_SETTER(APImageCache, mContext_, ADContext *)
 J2OBJC_FIELD_SETTER(APImageCache, mMemoryCache_, APLruCache *)
 J2OBJC_FIELD_SETTER(APImageCache, mDiskCache_, APDiskLruCache *)
 
-inline jint APImageCache_get_DISK_CACHE_VALUE_COUNT(void);
+inline int32_t APImageCache_get_DISK_CACHE_VALUE_COUNT(void);
 #define APImageCache_DISK_CACHE_VALUE_COUNT 1
-J2OBJC_STATIC_FIELD_CONSTANT(APImageCache, DISK_CACHE_VALUE_COUNT, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(APImageCache, DISK_CACHE_VALUE_COUNT, int32_t)
 
-inline jint APImageCache_get_DISK_CACHE_MAX_SIZE(void);
+inline int32_t APImageCache_get_DISK_CACHE_MAX_SIZE(void);
 #define APImageCache_DISK_CACHE_MAX_SIZE 104857600
-J2OBJC_STATIC_FIELD_CONSTANT(APImageCache, DISK_CACHE_MAX_SIZE, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(APImageCache, DISK_CACHE_MAX_SIZE, int32_t)
 
 inline APImageCache *APImageCache_get_sImageCache(void);
 inline APImageCache *APImageCache_set_sImageCache(APImageCache *value);
@@ -66,29 +78,30 @@ __attribute__((unused)) static void APImageCache_openDiskCache(APImageCache *sel
 
 @interface APImageCache_1 : APLruCache
 
-- (instancetype)initWithInt:(jint)maxSize;
+- (instancetype)initWithInt:(int32_t)maxSize;
 
-- (jint)sizeOfWithId:(NSString *)key
-              withId:(id<ADBitmap>)bitmap;
+- (int32_t)sizeOfWithId:(NSString *)key
+                 withId:(id<ADBitmap>)bitmap;
 
-- (id<ADBitmap>)getWithId:(NSString *)arg0;
+- (id<ADBitmap>)getWithId:(id)key;
 
-- (id<ADBitmap>)createWithId:(NSString *)arg0;
+- (id<ADBitmap>)createWithId:(id)key;
 
-- (id<ADBitmap>)removeWithId:(NSString *)arg0;
+- (id<ADBitmap>)removeWithId:(id)key;
 
-- (id<ADBitmap>)putWithId:(NSString *)arg0
-                   withId:(id<ADBitmap>)arg1;
+- (id<ADBitmap>)putWithId:(id)key
+                   withId:(id)value;
 
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(APImageCache_1)
 
-__attribute__((unused)) static void APImageCache_1_initWithInt_(APImageCache_1 *self, jint maxSize);
+__attribute__((unused)) static void APImageCache_1_initWithInt_(APImageCache_1 *self, int32_t maxSize);
 
-__attribute__((unused)) static APImageCache_1 *new_APImageCache_1_initWithInt_(jint maxSize) NS_RETURNS_RETAINED;
+__attribute__((unused)) static APImageCache_1 *new_APImageCache_1_initWithInt_(int32_t maxSize) NS_RETURNS_RETAINED;
 
-__attribute__((unused)) static APImageCache_1 *create_APImageCache_1_initWithInt_(jint maxSize);
+__attribute__((unused)) static APImageCache_1 *create_APImageCache_1_initWithInt_(int32_t maxSize);
+
 
 @interface APImageCache_BitmapDecoderTask : ADAsyncTask {
  @public
@@ -123,6 +136,7 @@ __attribute__((unused)) static APImageCache_BitmapDecoderTask *create_APImageCac
 
 J2OBJC_TYPE_LITERAL_HEADER(APImageCache_BitmapDecoderTask)
 
+
 @interface APImageCache_BitmapDecoderTask_1 : NSObject < APBitmapFactoryScale_InputStreamGenerator > {
  @public
   APImageCache_BitmapDecoderTask *this$0_;
@@ -141,6 +155,7 @@ __attribute__((unused)) static void APImageCache_BitmapDecoderTask_1_initWithAPI
 __attribute__((unused)) static APImageCache_BitmapDecoderTask_1 *new_APImageCache_BitmapDecoderTask_1_initWithAPImageCache_BitmapDecoderTask_(APImageCache_BitmapDecoderTask *outer$) NS_RETURNS_RETAINED;
 
 __attribute__((unused)) static APImageCache_BitmapDecoderTask_1 *create_APImageCache_BitmapDecoderTask_1_initWithAPImageCache_BitmapDecoderTask_(APImageCache_BitmapDecoderTask *outer$);
+
 
 @implementation APImageCache
 
@@ -178,16 +193,16 @@ withAPImageCache_ImageCacheListener:(id<APImageCache_ImageCacheListener>)listene
     @synchronized([((NSString *) nil_chk(cacheKey)) java_intern]) {
       APDiskLruCache_Editor *editor = [((APDiskLruCache *) nil_chk(mDiskCache_)) editWithNSString:cacheKey];
       JavaIoOutputStream *outputStream = [((APDiskLruCache_Editor *) nil_chk(editor)) newOutputStreamWithInt:0];
-      jint bufferSize = 1024;
+      int32_t bufferSize = 1024;
       IOSByteArray *bytes = [IOSByteArray newArrayWithLength:bufferSize];
       for (; ; ) {
-        jint count = [((JavaIoInputStream *) nil_chk(inputStream)) readWithByteArray:bytes withInt:0 withInt:bufferSize];
+        int32_t count = [((JavaIoInputStream *) nil_chk(inputStream)) readWithByteArray:bytes withInt:0 withInt:bufferSize];
         if (count == -1) break;
         [((JavaIoOutputStream *) nil_chk(outputStream)) writeWithByteArray:bytes withInt:0 withInt:count];
       }
       [((JavaIoOutputStream *) nil_chk(outputStream)) close];
       [editor commit];
-      return JreRetainedLocalValue([((APDiskLruCache *) nil_chk(mDiskCache_)) getWithNSString:cacheKey]);
+      return [((APDiskLruCache *) nil_chk(mDiskCache_)) getWithNSString:cacheKey];
     }
   }
   @catch (JavaLangException *e) {
@@ -267,8 +282,8 @@ withAPImageCache_ImageCacheListener:(id<APImageCache_ImageCacheListener>)listene
 void APImageCache_initWithADContext_(APImageCache *self, ADContext *context) {
   NSObject_init(self);
   self->mContext_ = context;
-  jint memClass = [((ADActivityManager *) nil_chk(((ADActivityManager *) cast_chk([((ADContext *) nil_chk(context)) getSystemServiceWithIOSClass:JreLoadStatic(ADContext, ACTIVITY_SERVICE)], [ADActivityManager class])))) getMemoryClass];
-  jint cacheSize = 1024 * 1024 * (JreIntDiv(memClass, 8));
+  int32_t memClass = [((ADActivityManager *) nil_chk(((ADActivityManager *) cast_chk([((ADContext *) nil_chk(context)) getSystemServiceWithIOSClass:JreLoadStatic(ADContext, ACTIVITY_SERVICE)], [ADActivityManager class])))) getMemoryClass];
+  int32_t cacheSize = 1024 * 1024 * (JreIntDiv(memClass, 8));
   self->mMemoryCache_ = new_APImageCache_1_initWithInt_(cacheSize);
   APImageCache_openDiskCache(self);
 }
@@ -297,7 +312,7 @@ void APImageCache_openDiskCache(APImageCache *self) {
   else {
     directory = [((ADContext *) nil_chk(self->mContext_)) getCacheDir];
   }
-  jint versionCode;
+  int32_t versionCode;
   @try {
     versionCode = ((ADPackageManager_PackageInfo *) nil_chk([((ADPackageManager *) nil_chk([((ADContext *) nil_chk(self->mContext_)) getPackageManager])) getPackageInfoWithNSString:[((ADContext *) nil_chk(self->mContext_)) getPackageName] withInt:0]))->versionCode_;
   }
@@ -319,6 +334,8 @@ void APImageCache_openDiskCache(APImageCache *self) {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APImageCache)
+
+J2OBJC_NAME_MAPPING(APImageCache, "com.applidium.shutterbug.cache", "AP")
 
 @implementation APImageCache_ImageCacheListener
 
@@ -344,13 +361,13 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(APImageCache_ImageCacheListener)
 
 @implementation APImageCache_1
 
-- (instancetype)initWithInt:(jint)maxSize {
+- (instancetype)initWithInt:(int32_t)maxSize {
   APImageCache_1_initWithInt_(self, maxSize);
   return self;
 }
 
-- (jint)sizeOfWithId:(NSString *)key
-              withId:(id<ADBitmap>)bitmap {
+- (int32_t)sizeOfWithId:(NSString *)key
+                 withId:(id<ADBitmap>)bitmap {
   return [((id<ADBitmap>) nil_chk(bitmap)) getRowBytes] * [bitmap getHeight];
 }
 
@@ -366,21 +383,21 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(APImageCache_ImageCacheListener)
   methods[1].selector = @selector(sizeOfWithId:withId:);
   #pragma clang diagnostic pop
   static const void *ptrTable[] = { "I", "sizeOf", "LNSString;LADBitmap;", "LAPImageCache;", "initWithADContext:", "Lcom/applidium/shutterbug/cache/LruCache<Ljava/lang/String;Lr/android/graphics/Bitmap;>;" };
-  static const J2ObjcClassInfo _APImageCache_1 = { "", "com.applidium.shutterbug.cache", ptrTable, methods, NULL, 7, 0x8010, 2, 0, 3, -1, 4, 5, -1 };
+  static const J2ObjcClassInfo _APImageCache_1 = { "", "com.applidium.shutterbug.cache", ptrTable, methods, NULL, 7, 0x8000, 2, 0, 3, -1, 4, 5, -1 };
   return &_APImageCache_1;
 }
 
 @end
 
-void APImageCache_1_initWithInt_(APImageCache_1 *self, jint maxSize) {
+void APImageCache_1_initWithInt_(APImageCache_1 *self, int32_t maxSize) {
   APLruCache_initWithInt_(self, maxSize);
 }
 
-APImageCache_1 *new_APImageCache_1_initWithInt_(jint maxSize) {
+APImageCache_1 *new_APImageCache_1_initWithInt_(int32_t maxSize) {
   J2OBJC_NEW_IMPL(APImageCache_1, initWithInt_, maxSize)
 }
 
-APImageCache_1 *create_APImageCache_1_initWithInt_(jint maxSize) {
+APImageCache_1 *create_APImageCache_1_initWithInt_(int32_t maxSize) {
   J2OBJC_CREATE_IMPL(APImageCache_1, initWithInt_, maxSize)
 }
 
@@ -496,7 +513,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APImageCache_BitmapDecoderTask)
     { "this$0_", "LAPImageCache_BitmapDecoderTask;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LAPImageCache_BitmapDecoderTask;", "doInBackgroundWithNSObjectArray:" };
-  static const J2ObjcClassInfo _APImageCache_BitmapDecoderTask_1 = { "", "com.applidium.shutterbug.cache", ptrTable, methods, fields, 7, 0x8010, 2, 1, 0, -1, 1, -1, -1 };
+  static const J2ObjcClassInfo _APImageCache_BitmapDecoderTask_1 = { "", "com.applidium.shutterbug.cache", ptrTable, methods, fields, 7, 0x8000, 2, 1, 0, -1, 1, -1, -1 };
   return &_APImageCache_BitmapDecoderTask_1;
 }
 

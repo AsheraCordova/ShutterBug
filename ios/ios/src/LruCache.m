@@ -3,10 +3,18 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\cache\LruCache.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
 #include "J2ObjC_source.h"
 #include "LruCache.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Character.h"
+#include "java/lang/Float.h"
 #include "java/lang/IllegalArgumentException.h"
 #include "java/lang/IllegalStateException.h"
 #include "java/lang/Integer.h"
@@ -16,7 +24,11 @@
 #include "java/util/Map.h"
 #include "java/util/Set.h"
 
-@class JavaUtilLinkedHashMap;
+
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface APLruCache () {
@@ -25,35 +37,35 @@
   /*!
    @brief Size of this cache in units.Not necessarily the number of elements.
    */
-  jint size_;
-  jint maxSize_;
-  jint putCount_;
-  jint createCount_;
-  jint evictionCount_;
-  jint hitCount_;
-  jint missCount_;
+  int32_t size_;
+  int32_t maxSize_;
+  int32_t putCount_;
+  int32_t createCount_;
+  int32_t evictionCount_;
+  int32_t hitCount_;
+  int32_t missCount_;
 }
 
 /*!
  @param maxSize the maximum size of the cache before returning. May be -1 to
               evict even 0-sized elements.
  */
-- (void)trimToSizeWithInt:(jint)maxSize;
+- (void)trimToSizeWithInt:(int32_t)maxSize;
 
-- (jint)safeSizeOfWithId:(id)key
-                  withId:(id)value;
+- (int32_t)safeSizeOfWithId:(id)key
+                     withId:(id)value;
 
 @end
 
 J2OBJC_FIELD_SETTER(APLruCache, map_, JavaUtilLinkedHashMap *)
 
-__attribute__((unused)) static void APLruCache_trimToSizeWithInt_(APLruCache *self, jint maxSize);
+__attribute__((unused)) static void APLruCache_trimToSizeWithInt_(APLruCache *self, int32_t maxSize);
 
-__attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCache *self, id key, id value);
+__attribute__((unused)) static int32_t APLruCache_safeSizeOfWithId_withId_(APLruCache *self, id key, id value);
 
 @implementation APLruCache
 
-- (instancetype)initWithInt:(jint)maxSize {
+- (instancetype)initWithInt:(int32_t)maxSize {
   APLruCache_initWithInt_(self, maxSize);
   return self;
 }
@@ -64,10 +76,10 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   }
   id mapValue;
   @synchronized(self) {
-    mapValue = JreRetainedLocalValue([((JavaUtilLinkedHashMap *) nil_chk(map_)) getWithId:key]);
+    mapValue = [((JavaUtilLinkedHashMap *) nil_chk(map_)) getWithId:key];
     if (mapValue != nil) {
       hitCount_++;
-      return JreRetainedLocalValue(mapValue);
+      return mapValue;
     }
     missCount_++;
   }
@@ -77,7 +89,7 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   }
   @synchronized(self) {
     createCount_++;
-    mapValue = JreRetainedLocalValue([map_ putWithId:key withId:createdValue]);
+    mapValue = [map_ putWithId:key withId:createdValue];
     if (mapValue != nil) {
       (void) [map_ putWithId:key withId:mapValue];
     }
@@ -104,7 +116,7 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   @synchronized(self) {
     putCount_++;
     size_ += APLruCache_safeSizeOfWithId_withId_(self, key, value);
-    previous = JreRetainedLocalValue([((JavaUtilLinkedHashMap *) nil_chk(map_)) putWithId:key withId:value]);
+    previous = [((JavaUtilLinkedHashMap *) nil_chk(map_)) putWithId:key withId:value];
     if (previous != nil) {
       size_ -= APLruCache_safeSizeOfWithId_withId_(self, key, previous);
     }
@@ -116,7 +128,7 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   return previous;
 }
 
-- (void)trimToSizeWithInt:(jint)maxSize {
+- (void)trimToSizeWithInt:(int32_t)maxSize {
   APLruCache_trimToSizeWithInt_(self, maxSize);
 }
 
@@ -126,7 +138,7 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   }
   id previous;
   @synchronized(self) {
-    previous = JreRetainedLocalValue([((JavaUtilLinkedHashMap *) nil_chk(map_)) removeWithId:key]);
+    previous = [((JavaUtilLinkedHashMap *) nil_chk(map_)) removeWithId:key];
     if (previous != nil) {
       size_ -= APLruCache_safeSizeOfWithId_withId_(self, key, previous);
     }
@@ -137,7 +149,7 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   return previous;
 }
 
-- (void)entryRemovedWithBoolean:(jboolean)evicted
+- (void)entryRemovedWithBoolean:(bool)evicted
                          withId:(id)key
                          withId:(id)oldValue
                          withId:(id)newValue {
@@ -147,13 +159,13 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   return nil;
 }
 
-- (jint)safeSizeOfWithId:(id)key
-                  withId:(id)value {
+- (int32_t)safeSizeOfWithId:(id)key
+                     withId:(id)value {
   return APLruCache_safeSizeOfWithId_withId_(self, key, value);
 }
 
-- (jint)sizeOfWithId:(id)key
-              withId:(id)value {
+- (int32_t)sizeOfWithId:(id)key
+                 withId:(id)value {
   return 1;
 }
 
@@ -161,43 +173,43 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
   APLruCache_trimToSizeWithInt_(self, -1);
 }
 
-- (jint)size {
+- (int32_t)size {
   @synchronized(self) {
     return size_;
   }
 }
 
-- (jint)maxSize {
+- (int32_t)maxSize {
   @synchronized(self) {
     return maxSize_;
   }
 }
 
-- (jint)hitCount {
+- (int32_t)hitCount {
   @synchronized(self) {
     return hitCount_;
   }
 }
 
-- (jint)missCount {
+- (int32_t)missCount {
   @synchronized(self) {
     return missCount_;
   }
 }
 
-- (jint)createCount {
+- (int32_t)createCount {
   @synchronized(self) {
     return createCount_;
   }
 }
 
-- (jint)putCount {
+- (int32_t)putCount {
   @synchronized(self) {
     return putCount_;
   }
 }
 
-- (jint)evictionCount {
+- (int32_t)evictionCount {
   @synchronized(self) {
     return evictionCount_;
   }
@@ -205,15 +217,15 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
 
 - (id<JavaUtilMap>)snapshot {
   @synchronized(self) {
-    return JreRetainedLocalValue(new_JavaUtilLinkedHashMap_initWithJavaUtilMap_(map_));
+    return new_JavaUtilLinkedHashMap_initWithJavaUtilMap_(map_);
   }
 }
 
 - (NSString *)description {
   @synchronized(self) {
-    jint accesses = hitCount_ + missCount_;
-    jint hitPercent = accesses != 0 ? (JreIntDiv(100 * hitCount_, accesses)) : 0;
-    return JreRetainedLocalValue(NSString_java_formatWithNSString_withNSObjectArray_(@"LruCache[maxSize=%d,hits=%d,misses=%d,hitRate=%d%%]", [IOSObjectArray newArrayWithObjects:(id[]){ JavaLangInteger_valueOfWithInt_(maxSize_), JavaLangInteger_valueOfWithInt_(hitCount_), JavaLangInteger_valueOfWithInt_(missCount_), JavaLangInteger_valueOfWithInt_(hitPercent) } count:4 type:NSObject_class_()]));
+    int32_t accesses = hitCount_ + missCount_;
+    int32_t hitPercent = accesses != 0 ? (JreIntDiv(100 * hitCount_, accesses)) : 0;
+    return NSString_java_formatWithNSString_withNSObjectArray_(@"LruCache[maxSize=%d,hits=%d,misses=%d,hitRate=%d%%]", [IOSObjectArray newArrayWithObjects:(id[]){ JavaLangInteger_valueOfWithInt_(maxSize_), JavaLangInteger_valueOfWithInt_(hitCount_), JavaLangInteger_valueOfWithInt_(missCount_), JavaLangInteger_valueOfWithInt_(hitPercent) } count:4 type:NSObject_class_()]);
   }
 }
 
@@ -279,7 +291,7 @@ __attribute__((unused)) static jint APLruCache_safeSizeOfWithId_withId_(APLruCac
 
 @end
 
-void APLruCache_initWithInt_(APLruCache *self, jint maxSize) {
+void APLruCache_initWithInt_(APLruCache *self, int32_t maxSize) {
   NSObject_init(self);
   if (maxSize <= 0) {
     @throw new_JavaLangIllegalArgumentException_initWithNSString_(@"maxSize <= 0");
@@ -288,15 +300,15 @@ void APLruCache_initWithInt_(APLruCache *self, jint maxSize) {
   self->map_ = new_JavaUtilLinkedHashMap_initWithInt_withFloat_withBoolean_(0, 0.75f, true);
 }
 
-APLruCache *new_APLruCache_initWithInt_(jint maxSize) {
+APLruCache *new_APLruCache_initWithInt_(int32_t maxSize) {
   J2OBJC_NEW_IMPL(APLruCache, initWithInt_, maxSize)
 }
 
-APLruCache *create_APLruCache_initWithInt_(jint maxSize) {
+APLruCache *create_APLruCache_initWithInt_(int32_t maxSize) {
   J2OBJC_CREATE_IMPL(APLruCache, initWithInt_, maxSize)
 }
 
-void APLruCache_trimToSizeWithInt_(APLruCache *self, jint maxSize) {
+void APLruCache_trimToSizeWithInt_(APLruCache *self, int32_t maxSize) {
   while (true) {
     id key;
     id value;
@@ -308,8 +320,8 @@ void APLruCache_trimToSizeWithInt_(APLruCache *self, jint maxSize) {
         break;
       }
       id<JavaUtilMap_Entry> toEvict = [((id<JavaUtilIterator>) nil_chk([((id<JavaUtilSet>) nil_chk([((JavaUtilLinkedHashMap *) nil_chk(self->map_)) entrySet])) iterator])) next];
-      key = JreRetainedLocalValue([((id<JavaUtilMap_Entry>) nil_chk(toEvict)) getKey]);
-      value = JreRetainedLocalValue([toEvict getValue]);
+      key = [((id<JavaUtilMap_Entry>) nil_chk(toEvict)) getKey];
+      value = [toEvict getValue];
       (void) [self->map_ removeWithId:key];
       self->size_ -= APLruCache_safeSizeOfWithId_withId_(self, key, value);
       self->evictionCount_++;
@@ -318,8 +330,8 @@ void APLruCache_trimToSizeWithInt_(APLruCache *self, jint maxSize) {
   }
 }
 
-jint APLruCache_safeSizeOfWithId_withId_(APLruCache *self, id key, id value) {
-  jint result = [self sizeOfWithId:key withId:value];
+int32_t APLruCache_safeSizeOfWithId_withId_(APLruCache *self, id key, id value) {
+  int32_t result = [self sizeOfWithId:key withId:value];
   if (result < 0) {
     @throw new_JavaLangIllegalStateException_initWithNSString_(JreStrcat("$@C@", @"Negative size: ", key, '=', value));
   }
@@ -327,3 +339,5 @@ jint APLruCache_safeSizeOfWithId_withId_(APLruCache *self, id key, id value) {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APLruCache)
+
+J2OBJC_NAME_MAPPING(APLruCache, "com.applidium.shutterbug.cache", "AP")

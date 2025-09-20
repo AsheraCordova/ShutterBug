@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\downloader\ShutterbugDownloader.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_ShutterbugDownloader")
@@ -18,6 +19,7 @@
 
 @class APDownloadRequest;
 @class IOSByteArray;
+@class NSString;
 @protocol APShutterbugDownloader_ShutterbugDownloaderListener;
 
 @interface APShutterbugDownloader : NSObject
@@ -58,6 +60,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APShutterbugDownloader)
 
 @compatibility_alias ComApplidiumShutterbugDownloaderShutterbugDownloader APShutterbugDownloader;
 
+
 #endif
 
 #if !defined (APShutterbugDownloader_ShutterbugDownloaderListener_) && (INCLUDE_ALL_ShutterbugDownloader || defined(INCLUDE_APShutterbugDownloader_ShutterbugDownloaderListener))
@@ -81,6 +84,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APShutterbugDownloader)
 J2OBJC_EMPTY_STATIC_INIT(APShutterbugDownloader_ShutterbugDownloaderListener)
 
 J2OBJC_TYPE_LITERAL_HEADER(APShutterbugDownloader_ShutterbugDownloaderListener)
+
 
 #endif
 

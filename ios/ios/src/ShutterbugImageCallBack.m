@@ -3,8 +3,19 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\ShutterbugImageCallBack.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "J2ObjC_source.h"
 #include "ShutterbugImageCallBack.h"
+
+
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface APShutterbugImageCallBack : NSObject
@@ -34,3 +45,5 @@
 @end
 
 J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(APShutterbugImageCallBack)
+
+J2OBJC_NAME_MAPPING(APShutterbugImageCallBack, "com.applidium.shutterbug", "AP")

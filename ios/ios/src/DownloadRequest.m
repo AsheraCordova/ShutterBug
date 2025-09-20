@@ -3,18 +3,31 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\utils\DownloadRequest.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "BitmapFactory.h"
 #include "DownloadRequest.h"
 #include "J2ObjC_source.h"
 #include "ShutterbugManager.h"
+#include "java/lang/Integer.h"
+
+
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface APDownloadRequest () {
  @public
   NSString *mUrl_;
   id<APShutterbugManager_ShutterbugManagerListener> mListener_;
-  jint mDesiredHeight_;
-  jint mDesiredWidth_;
+  int32_t mDesiredHeight_;
+  int32_t mDesiredWidth_;
 }
 
 @end
@@ -32,22 +45,22 @@ withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_Shutte
 
 - (instancetype)initWithNSString:(NSString *)url
 withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
-                         withInt:(jint)desiredHeight
-                         withInt:(jint)desiredWidth {
+                         withInt:(int32_t)desiredHeight
+                         withInt:(int32_t)desiredWidth {
   APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(self, url, listener, desiredHeight, desiredWidth);
   return self;
 }
 
-- (jint)getSampleSizeWithADBitmapFactory_Options:(ADBitmapFactory_Options *)options {
+- (int32_t)getSampleSizeWithADBitmapFactory_Options:(ADBitmapFactory_Options *)options {
   if (mDesiredHeight_ <= 0 || mDesiredWidth_ <= 0) {
     return 1;
   }
-  jint height = ((ADBitmapFactory_Options *) nil_chk(options))->outHeight_;
-  jint width = options->outWidth_;
-  jint inSampleSize = 1;
+  int32_t height = ((ADBitmapFactory_Options *) nil_chk(options))->outHeight_;
+  int32_t width = options->outWidth_;
+  int32_t inSampleSize = 1;
   if (height > mDesiredHeight_ || width > mDesiredWidth_) {
-    jint halfHeight = JreIntDiv(height, 2);
-    jint halfWidth = JreIntDiv(width, 2);
+    int32_t halfHeight = JreIntDiv(height, 2);
+    int32_t halfWidth = JreIntDiv(width, 2);
     while ((JreIntDiv(halfHeight, inSampleSize)) > mDesiredHeight_ && (JreIntDiv(halfWidth, inSampleSize)) > mDesiredWidth_) {
       inSampleSize *= 2;
     }
@@ -109,7 +122,7 @@ APDownloadRequest *create_APDownloadRequest_initWithNSString_withAPShutterbugMan
   J2OBJC_CREATE_IMPL(APDownloadRequest, initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_, url, listener)
 }
 
-void APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(APDownloadRequest *self, NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, jint desiredHeight, jint desiredWidth) {
+void APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(APDownloadRequest *self, NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, int32_t desiredHeight, int32_t desiredWidth) {
   NSObject_init(self);
   self->mDesiredHeight_ = -1;
   self->mDesiredWidth_ = -1;
@@ -119,12 +132,14 @@ void APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManage
   self->mDesiredWidth_ = desiredWidth;
 }
 
-APDownloadRequest *new_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, jint desiredHeight, jint desiredWidth) {
+APDownloadRequest *new_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, int32_t desiredHeight, int32_t desiredWidth) {
   J2OBJC_NEW_IMPL(APDownloadRequest, initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_, url, listener, desiredHeight, desiredWidth)
 }
 
-APDownloadRequest *create_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, jint desiredHeight, jint desiredWidth) {
+APDownloadRequest *create_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, int32_t desiredHeight, int32_t desiredWidth) {
   J2OBJC_CREATE_IMPL(APDownloadRequest, initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_, url, listener, desiredHeight, desiredWidth)
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDownloadRequest)
+
+J2OBJC_NAME_MAPPING(APDownloadRequest, "com.applidium.shutterbug.utils", "AP")

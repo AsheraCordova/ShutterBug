@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\cache\LruCache.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_LruCache")
@@ -16,6 +17,9 @@
 #if !defined (APLruCache_) && (INCLUDE_ALL_LruCache || defined(INCLUDE_APLruCache))
 #define APLruCache_
 
+@class JavaLangBoolean;
+@class JavaLangInteger;
+@class NSString;
 @protocol JavaUtilMap;
 
 /*!
@@ -36,12 +40,12 @@
               this is the maximum sum of the sizes of the entries in this
               cache.
  */
-- (instancetype)initWithInt:(jint)maxSize;
+- (instancetype)initWithInt:(int32_t)maxSize;
 
 /*!
  @brief Returns the number of times <code>create(Object)</code> returned a value.
  */
-- (jint)createCount;
+- (int32_t)createCount;
 
 /*!
  @brief Clear the cache, calling <code>entryRemoved</code> on each removed entry.
@@ -51,7 +55,7 @@
 /*!
  @brief Returns the number of values that have been evicted.
  */
-- (jint)evictionCount;
+- (int32_t)evictionCount;
 
 /*!
  @brief Returns the value for <code>key</code> if it exists in the cache or can be
@@ -65,20 +69,20 @@
 /*!
  @brief Returns the number of times <code>get</code> returned a value.
  */
-- (jint)hitCount;
+- (int32_t)hitCount;
 
 /*!
  @brief For caches that do not override <code>sizeOf</code>, this returns the maximum
   number of entries in the cache.For all other caches, this returns the
   maximum sum of the sizes of the entries in this cache.
  */
-- (jint)maxSize;
+- (int32_t)maxSize;
 
 /*!
  @brief Returns the number of times <code>get</code> returned null or required a new
   value to be created.
  */
-- (jint)missCount;
+- (int32_t)missCount;
 
 /*!
  @brief Caches <code>value</code> for <code>key</code>.The value is moved to the head of
@@ -91,7 +95,7 @@
 /*!
  @brief Returns the number of times <code>put</code> was called.
  */
-- (jint)putCount;
+- (int32_t)putCount;
 
 /*!
  @brief Removes the entry for <code>key</code> if it exists.
@@ -104,7 +108,7 @@
   of entries in the cache.For all other caches, this returns the sum of
   the sizes of the entries in this cache.
  */
-- (jint)size;
+- (int32_t)size;
 
 /*!
  @brief Returns a copy of the current contents of the cache, ordered from least
@@ -149,7 +153,7 @@
  <code>put</code> . Otherwise it was caused             by an eviction or a 
  <code>remove</code> .
  */
-- (void)entryRemovedWithBoolean:(jboolean)evicted
+- (void)entryRemovedWithBoolean:(bool)evicted
                          withId:(id)key
                          withId:(id)oldValue
                          withId:(id)newValue;
@@ -161,8 +165,8 @@
  <p>
   An entry's size must not change while it is in the cache.
  */
-- (jint)sizeOfWithId:(id)key
-              withId:(id)value;
+- (int32_t)sizeOfWithId:(id)key
+                 withId:(id)value;
 
 // Disallowed inherited constructors, do not use.
 
@@ -172,15 +176,16 @@
 
 J2OBJC_EMPTY_STATIC_INIT(APLruCache)
 
-FOUNDATION_EXPORT void APLruCache_initWithInt_(APLruCache *self, jint maxSize);
+FOUNDATION_EXPORT void APLruCache_initWithInt_(APLruCache *self, int32_t maxSize);
 
-FOUNDATION_EXPORT APLruCache *new_APLruCache_initWithInt_(jint maxSize) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT APLruCache *new_APLruCache_initWithInt_(int32_t maxSize) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT APLruCache *create_APLruCache_initWithInt_(jint maxSize);
+FOUNDATION_EXPORT APLruCache *create_APLruCache_initWithInt_(int32_t maxSize);
 
 J2OBJC_TYPE_LITERAL_HEADER(APLruCache)
 
 @compatibility_alias ComApplidiumShutterbugCacheLruCache APLruCache;
+
 
 #endif
 

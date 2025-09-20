@@ -3,6 +3,11 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\cache\DiskLruCache.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "DiskLruCache.h"
 #include "IOSClass.h"
 #include "IOSObjectArray.h"
@@ -28,7 +33,10 @@
 #include "java/io/StringWriter.h"
 #include "java/io/Writer.h"
 #include "java/lang/ArrayIndexOutOfBoundsException.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Character.h"
 #include "java/lang/Exception.h"
+#include "java/lang/Float.h"
 #include "java/lang/IllegalArgumentException.h"
 #include "java/lang/IllegalStateException.h"
 #include "java/lang/Integer.h"
@@ -55,19 +63,13 @@
 #include "java/util/concurrent/ThreadPoolExecutor.h"
 #include "java/util/concurrent/TimeUnit.h"
 
+
 @class APDiskLruCache_Entry;
-@class JavaIoFile;
-@class JavaIoIOException;
-@class JavaIoInputStream;
-@class JavaIoOutputStream;
-@class JavaIoReader;
-@class JavaIoWriter;
-@class JavaLangVoid;
-@class JavaNioCharsetCharset;
-@class JavaUtilLinkedHashMap;
-@protocol JavaIoCloseable;
-@protocol JavaUtilConcurrentCallable;
-@protocol JavaUtilConcurrentExecutorService;
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface APDiskLruCache () {
@@ -75,19 +77,19 @@
   JavaIoFile *directory_;
   JavaIoFile *journalFile_;
   JavaIoFile *journalFileTmp_;
-  jint appVersion_;
-  jlong maxSize_;
-  jint valueCount_;
-  jlong size_;
+  int32_t appVersion_;
+  int64_t maxSize_;
+  int32_t valueCount_;
+  int64_t size_;
   JavaIoWriter *journalWriter_;
   JavaUtilLinkedHashMap *lruEntries_;
-  jint redundantOpCount_;
+  int32_t redundantOpCount_;
   /*!
    @brief To differentiate between old and current snapshots, each entry is given
   a sequence number each time an edit is committed.A snapshot is stale if
   its sequence number is not equal to its entry's sequence number.
    */
-  jlong nextSequenceNumber_;
+  int64_t nextSequenceNumber_;
   /*!
    @brief This cache uses a single background thread to evict entries.
    */
@@ -96,8 +98,8 @@
 }
 
 + (IOSObjectArray *)copyOfRangeWithNSObjectArray:(IOSObjectArray *)original
-                                         withInt:(jint)start
-                                         withInt:(jint)end OBJC_METHOD_FAMILY_NONE;
+                                         withInt:(int32_t)start
+                                         withInt:(int32_t)end OBJC_METHOD_FAMILY_NONE;
 
 + (void)deleteContentsWithJavaIoFile:(JavaIoFile *)dir;
 
@@ -108,9 +110,9 @@
 + (NSString *)readAsciiLineWithJavaIoInputStream:(JavaIoInputStream *)inArg;
 
 - (instancetype)initWithJavaIoFile:(JavaIoFile *)directory
-                           withInt:(jint)appVersion
-                           withInt:(jint)valueCount
-                          withLong:(jlong)maxSize;
+                           withInt:(int32_t)appVersion
+                           withInt:(int32_t)valueCount
+                          withLong:(int64_t)maxSize;
 
 - (void)readJournal;
 
@@ -131,16 +133,16 @@
 + (void)deleteIfExistsWithJavaIoFile:(JavaIoFile *)file;
 
 - (APDiskLruCache_Editor *)editWithNSString:(NSString *)key
-                                   withLong:(jlong)expectedSequenceNumber;
+                                   withLong:(int64_t)expectedSequenceNumber;
 
 - (void)completeEditWithAPDiskLruCache_Editor:(APDiskLruCache_Editor *)editor
-                                  withBoolean:(jboolean)success;
+                                  withBoolean:(bool)success;
 
 /*!
  @brief We only rebuild the journal when it will halve the size of the journal
   and eliminate at least 2000 ops.
  */
-- (jboolean)journalRebuildRequired;
+- (bool)journalRebuildRequired;
 
 - (void)checkNotClosed;
 
@@ -180,7 +182,7 @@ inline JavaNioCharsetCharset *APDiskLruCache_get_UTF_8(void);
 static JavaNioCharsetCharset *APDiskLruCache_UTF_8;
 J2OBJC_STATIC_FIELD_OBJ_FINAL(APDiskLruCache, UTF_8, JavaNioCharsetCharset *)
 
-__attribute__((unused)) static IOSObjectArray *APDiskLruCache_copyOfRangeWithNSObjectArray_withInt_withInt_(IOSObjectArray *original, jint start, jint end);
+__attribute__((unused)) static IOSObjectArray *APDiskLruCache_copyOfRangeWithNSObjectArray_withInt_withInt_(IOSObjectArray *original, int32_t start, int32_t end);
 
 __attribute__((unused)) static void APDiskLruCache_deleteContentsWithJavaIoFile_(JavaIoFile *dir);
 
@@ -190,11 +192,11 @@ __attribute__((unused)) static NSString *APDiskLruCache_readFullyWithJavaIoReade
 
 __attribute__((unused)) static NSString *APDiskLruCache_readAsciiLineWithJavaIoInputStream_(JavaIoInputStream *inArg);
 
-__attribute__((unused)) static void APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(APDiskLruCache *self, JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize);
+__attribute__((unused)) static void APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(APDiskLruCache *self, JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize);
 
-__attribute__((unused)) static APDiskLruCache *new_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize) NS_RETURNS_RETAINED;
+__attribute__((unused)) static APDiskLruCache *new_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize) NS_RETURNS_RETAINED;
 
-__attribute__((unused)) static APDiskLruCache *create_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize);
+__attribute__((unused)) static APDiskLruCache *create_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize);
 
 __attribute__((unused)) static void APDiskLruCache_readJournal(APDiskLruCache *self);
 
@@ -206,11 +208,11 @@ __attribute__((unused)) static void APDiskLruCache_rebuildJournal(APDiskLruCache
 
 __attribute__((unused)) static void APDiskLruCache_deleteIfExistsWithJavaIoFile_(JavaIoFile *file);
 
-__attribute__((unused)) static APDiskLruCache_Editor *APDiskLruCache_editWithNSString_withLong_(APDiskLruCache *self, NSString *key, jlong expectedSequenceNumber);
+__attribute__((unused)) static APDiskLruCache_Editor *APDiskLruCache_editWithNSString_withLong_(APDiskLruCache *self, NSString *key, int64_t expectedSequenceNumber);
 
-__attribute__((unused)) static void APDiskLruCache_completeEditWithAPDiskLruCache_Editor_withBoolean_(APDiskLruCache *self, APDiskLruCache_Editor *editor, jboolean success);
+__attribute__((unused)) static void APDiskLruCache_completeEditWithAPDiskLruCache_Editor_withBoolean_(APDiskLruCache *self, APDiskLruCache_Editor *editor, bool success);
 
-__attribute__((unused)) static jboolean APDiskLruCache_journalRebuildRequired(APDiskLruCache *self);
+__attribute__((unused)) static bool APDiskLruCache_journalRebuildRequired(APDiskLruCache *self);
 
 __attribute__((unused)) static void APDiskLruCache_checkNotClosed(APDiskLruCache *self);
 
@@ -239,17 +241,18 @@ __attribute__((unused)) static APDiskLruCache_1 *new_APDiskLruCache_1_initWithAP
 
 __attribute__((unused)) static APDiskLruCache_1 *create_APDiskLruCache_1_initWithAPDiskLruCache_(APDiskLruCache *outer$);
 
+
 @interface APDiskLruCache_Snapshot () {
  @public
   APDiskLruCache *this$0_;
   NSString *key_;
-  jlong sequenceNumber_;
+  int64_t sequenceNumber_;
   IOSObjectArray *ins_;
 }
 
 - (instancetype)initWithAPDiskLruCache:(APDiskLruCache *)outer$
                           withNSString:(NSString *)key
-                              withLong:(jlong)sequenceNumber
+                              withLong:(int64_t)sequenceNumber
             withJavaIoInputStreamArray:(IOSObjectArray *)ins;
 
 @end
@@ -257,17 +260,17 @@ __attribute__((unused)) static APDiskLruCache_1 *create_APDiskLruCache_1_initWit
 J2OBJC_FIELD_SETTER(APDiskLruCache_Snapshot, key_, NSString *)
 J2OBJC_FIELD_SETTER(APDiskLruCache_Snapshot, ins_, IOSObjectArray *)
 
-__attribute__((unused)) static void APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache_Snapshot *self, APDiskLruCache *outer$, NSString *key, jlong sequenceNumber, IOSObjectArray *ins);
+__attribute__((unused)) static void APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache_Snapshot *self, APDiskLruCache *outer$, NSString *key, int64_t sequenceNumber, IOSObjectArray *ins);
 
-__attribute__((unused)) static APDiskLruCache_Snapshot *new_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, jlong sequenceNumber, IOSObjectArray *ins) NS_RETURNS_RETAINED;
+__attribute__((unused)) static APDiskLruCache_Snapshot *new_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, int64_t sequenceNumber, IOSObjectArray *ins) NS_RETURNS_RETAINED;
 
-__attribute__((unused)) static APDiskLruCache_Snapshot *create_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, jlong sequenceNumber, IOSObjectArray *ins);
+__attribute__((unused)) static APDiskLruCache_Snapshot *create_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, int64_t sequenceNumber, IOSObjectArray *ins);
 
 @interface APDiskLruCache_Editor () {
  @public
   APDiskLruCache *this$0_;
   APDiskLruCache_Entry *entry__;
-  jboolean hasErrors_;
+  bool hasErrors_;
 }
 
 - (instancetype)initWithAPDiskLruCache:(APDiskLruCache *)outer$
@@ -291,11 +294,11 @@ __attribute__((unused)) static APDiskLruCache_Editor *create_APDiskLruCache_Edit
 - (instancetype)initWithAPDiskLruCache_Editor:(APDiskLruCache_Editor *)outer$
                        withJavaIoOutputStream:(JavaIoOutputStream *)outArg;
 
-- (void)writeWithInt:(jint)oneByte;
+- (void)writeWithInt:(int32_t)oneByte;
 
 - (void)writeWithByteArray:(IOSByteArray *)buffer
-                   withInt:(jint)offset
-                   withInt:(jint)length;
+                   withInt:(int32_t)offset
+                   withInt:(int32_t)length;
 
 - (void)close;
 
@@ -313,6 +316,7 @@ __attribute__((unused)) static APDiskLruCache_Editor_FaultHidingOutputStream *cr
 
 J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Editor_FaultHidingOutputStream)
 
+
 @interface APDiskLruCache_Entry : NSObject {
  @public
   APDiskLruCache *this$0_;
@@ -324,7 +328,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Editor_FaultHidingOutputStream)
   /*!
    @brief True if this entry has ever been published
    */
-  jboolean readable_;
+  bool readable_;
   /*!
    @brief The ongoing edit or null if this entry is not being edited.
    */
@@ -332,7 +336,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Editor_FaultHidingOutputStream)
   /*!
    @brief The sequence number of the most recently committed edit to this entry.
    */
-  jlong sequenceNumber_;
+  int64_t sequenceNumber_;
 }
 
 - (instancetype)initWithAPDiskLruCache:(APDiskLruCache *)outer$
@@ -347,9 +351,9 @@ J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Editor_FaultHidingOutputStream)
 
 - (JavaIoIOException *)invalidLengthsWithNSStringArray:(IOSObjectArray *)strings;
 
-- (JavaIoFile *)getCleanFileWithInt:(jint)i;
+- (JavaIoFile *)getCleanFileWithInt:(int32_t)i;
 
-- (JavaIoFile *)getDirtyFileWithInt:(jint)i;
+- (JavaIoFile *)getDirtyFileWithInt:(int32_t)i;
 
 @end
 
@@ -371,6 +375,7 @@ __attribute__((unused)) static JavaIoIOException *APDiskLruCache_Entry_invalidLe
 
 J2OBJC_TYPE_LITERAL_HEADER(APDiskLruCache_Entry)
 
+
 J2OBJC_INITIALIZED_DEFN(APDiskLruCache)
 
 NSString *APDiskLruCache_JOURNAL_FILE = @"journal";
@@ -381,8 +386,8 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
 @implementation APDiskLruCache
 
 + (IOSObjectArray *)copyOfRangeWithNSObjectArray:(IOSObjectArray *)original
-                                         withInt:(jint)start
-                                         withInt:(jint)end {
+                                         withInt:(int32_t)start
+                                         withInt:(int32_t)end {
   return APDiskLruCache_copyOfRangeWithNSObjectArray_withInt_withInt_(original, start, end);
 }
 
@@ -403,17 +408,17 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
 }
 
 - (instancetype)initWithJavaIoFile:(JavaIoFile *)directory
-                           withInt:(jint)appVersion
-                           withInt:(jint)valueCount
-                          withLong:(jlong)maxSize {
+                           withInt:(int32_t)appVersion
+                           withInt:(int32_t)valueCount
+                          withLong:(int64_t)maxSize {
   APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(self, directory, appVersion, valueCount, maxSize);
   return self;
 }
 
 + (APDiskLruCache *)openWithJavaIoFile:(JavaIoFile *)directory
-                               withInt:(jint)appVersion
-                               withInt:(jint)valueCount
-                              withLong:(jlong)maxSize {
+                               withInt:(int32_t)appVersion
+                               withInt:(int32_t)valueCount
+                              withLong:(int64_t)maxSize {
   return APDiskLruCache_openWithJavaIoFile_withInt_withInt_withLong_(directory, appVersion, valueCount, maxSize);
 }
 
@@ -443,26 +448,26 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
     APDiskLruCache_validateKeyWithNSString_(self, key);
     APDiskLruCache_Entry *entry_ = [((JavaUtilLinkedHashMap *) nil_chk(lruEntries_)) getWithId:key];
     if (entry_ == nil) {
-      return JreRetainedLocalValue(nil);
+      return nil;
     }
     if (!entry_->readable_) {
-      return JreRetainedLocalValue(nil);
+      return nil;
     }
     IOSObjectArray *ins = [IOSObjectArray newArrayWithLength:valueCount_ type:JavaIoInputStream_class_()];
     @try {
-      for (jint i = 0; i < valueCount_; i++) {
+      for (int32_t i = 0; i < valueCount_; i++) {
         (void) IOSObjectArray_SetAndConsume(ins, i, new_JavaIoFileInputStream_initWithJavaIoFile_([entry_ getCleanFileWithInt:i]));
       }
     }
     @catch (JavaIoFileNotFoundException *e) {
-      return JreRetainedLocalValue(nil);
+      return nil;
     }
     redundantOpCount_++;
     (void) [((JavaIoWriter *) nil_chk(journalWriter_)) appendWithJavaLangCharSequence:JreStrcat("$C$C", APDiskLruCache_READ, ' ', key, 0x000a)];
     if (APDiskLruCache_journalRebuildRequired(self)) {
       (void) [((id<JavaUtilConcurrentExecutorService>) nil_chk(executorService_)) submitWithJavaUtilConcurrentCallable:cleanupCallable_];
     }
-    return JreRetainedLocalValue(new_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(self, key, entry_->sequenceNumber_, ins));
+    return new_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(self, key, entry_->sequenceNumber_, ins);
   }
 }
 
@@ -471,7 +476,7 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
 }
 
 - (APDiskLruCache_Editor *)editWithNSString:(NSString *)key
-                                   withLong:(jlong)expectedSequenceNumber {
+                                   withLong:(int64_t)expectedSequenceNumber {
   return APDiskLruCache_editWithNSString_withLong_(self, key, expectedSequenceNumber);
 }
 
@@ -479,26 +484,26 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
   return directory_;
 }
 
-- (jlong)maxSize {
+- (int64_t)maxSize {
   return maxSize_;
 }
 
-- (jlong)size {
+- (int64_t)size {
   @synchronized(self) {
     return size_;
   }
 }
 
 - (void)completeEditWithAPDiskLruCache_Editor:(APDiskLruCache_Editor *)editor
-                                  withBoolean:(jboolean)success {
+                                  withBoolean:(bool)success {
   APDiskLruCache_completeEditWithAPDiskLruCache_Editor_withBoolean_(self, editor, success);
 }
 
-- (jboolean)journalRebuildRequired {
+- (bool)journalRebuildRequired {
   return APDiskLruCache_journalRebuildRequired(self);
 }
 
-- (jboolean)removeWithNSString:(NSString *)key {
+- (bool)removeWithNSString:(NSString *)key {
   @synchronized(self) {
     APDiskLruCache_checkNotClosed(self);
     APDiskLruCache_validateKeyWithNSString_(self, key);
@@ -506,7 +511,7 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
     if (entry_ == nil || entry_->currentEditor_ != nil) {
       return false;
     }
-    for (jint i = 0; i < valueCount_; i++) {
+    for (int32_t i = 0; i < valueCount_; i++) {
       JavaIoFile *file = [entry_ getCleanFileWithInt:i];
       if (![((JavaIoFile *) nil_chk(file)) delete__]) {
         @throw new_JavaIoIOException_initWithNSString_(JreStrcat("$@", @"failed to delete ", file));
@@ -524,7 +529,7 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
   }
 }
 
-- (jboolean)isClosed {
+- (bool)isClosed {
   return journalWriter_ == nil;
 }
 
@@ -677,17 +682,17 @@ NSString *APDiskLruCache_VERSION_1 = @"1";
 
 @end
 
-IOSObjectArray *APDiskLruCache_copyOfRangeWithNSObjectArray_withInt_withInt_(IOSObjectArray *original, jint start, jint end) {
+IOSObjectArray *APDiskLruCache_copyOfRangeWithNSObjectArray_withInt_withInt_(IOSObjectArray *original, int32_t start, int32_t end) {
   APDiskLruCache_initialize();
-  jint originalLength = ((IOSObjectArray *) nil_chk(original))->size_;
+  int32_t originalLength = ((IOSObjectArray *) nil_chk(original))->size_;
   if (start > end) {
     @throw new_JavaLangIllegalArgumentException_init();
   }
   if (start < 0 || start > originalLength) {
     @throw new_JavaLangArrayIndexOutOfBoundsException_init();
   }
-  jint resultLength = end - start;
-  jint copyLength = JavaLangMath_minWithInt_withInt_(resultLength, originalLength - start);
+  int32_t resultLength = end - start;
+  int32_t copyLength = JavaLangMath_minWithInt_withInt_(resultLength, originalLength - start);
   IOSObjectArray *result = (IOSObjectArray *) cast_check(JavaLangReflectArray_newInstanceWithIOSClass_withInt_([[original java_getClass] getComponentType], resultLength), IOSClass_arrayType(NSObject_class_(), 1));
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(original, start, result, 0, copyLength);
   return result;
@@ -704,8 +709,8 @@ void APDiskLruCache_deleteContentsWithJavaIoFile_(JavaIoFile *dir) {
     JavaIoFile * const *b__ = a__->buffer_;
     JavaIoFile * const *e__ = b__ + a__->size_;
     while (b__ < e__) {
-      JavaIoFile *file = *b__++;
-      if ([((JavaIoFile *) nil_chk(file)) isDirectory]) {
+      JavaIoFile *file = RETAIN_AND_AUTORELEASE(*b__++);
+      if ([file isDirectory]) {
         APDiskLruCache_deleteContentsWithJavaIoFile_(file);
       }
       if (![file delete__]) {
@@ -733,7 +738,7 @@ NSString *APDiskLruCache_readFullyWithJavaIoReader_(JavaIoReader *reader) {
   @try {
     JavaIoStringWriter *writer = new_JavaIoStringWriter_init();
     IOSCharArray *buffer = [IOSCharArray newArrayWithLength:1024];
-    jint count;
+    int32_t count;
     while ((count = [((JavaIoReader *) nil_chk(reader)) readWithCharArray:buffer]) != -1) {
       [writer writeWithCharArray:buffer withInt:0 withInt:count];
     }
@@ -748,23 +753,23 @@ NSString *APDiskLruCache_readAsciiLineWithJavaIoInputStream_(JavaIoInputStream *
   APDiskLruCache_initialize();
   JavaLangStringBuilder *result = new_JavaLangStringBuilder_initWithInt_(80);
   while (true) {
-    jint c = [((JavaIoInputStream *) nil_chk(inArg)) read];
+    int32_t c = [((JavaIoInputStream *) nil_chk(inArg)) read];
     if (c == -1) {
       @throw new_JavaIoEOFException_init();
     }
     else if (c == 0x000a) {
       break;
     }
-    (void) [result appendWithChar:(jchar) c];
+    (void) [result appendWithChar:(unichar) c];
   }
-  jint length = [result java_length];
+  int32_t length = [result java_length];
   if (length > 0 && [result charAtWithInt:length - 1] == 0x000d) {
     [result setLengthWithInt:length - 1];
   }
   return [result description];
 }
 
-void APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(APDiskLruCache *self, JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize) {
+void APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(APDiskLruCache *self, JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize) {
   NSObject_init(self);
   self->size_ = 0;
   self->lruEntries_ = new_JavaUtilLinkedHashMap_initWithInt_withFloat_withBoolean_(0, 0.75f, true);
@@ -779,15 +784,15 @@ void APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(APDiskLruCache 
   self->maxSize_ = maxSize;
 }
 
-APDiskLruCache *new_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize) {
+APDiskLruCache *new_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize) {
   J2OBJC_NEW_IMPL(APDiskLruCache, initWithJavaIoFile_withInt_withInt_withLong_, directory, appVersion, valueCount, maxSize)
 }
 
-APDiskLruCache *create_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize) {
+APDiskLruCache *create_APDiskLruCache_initWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize) {
   J2OBJC_CREATE_IMPL(APDiskLruCache, initWithJavaIoFile_withInt_withInt_withLong_, directory, appVersion, valueCount, maxSize)
 }
 
-APDiskLruCache *APDiskLruCache_openWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, jint appVersion, jint valueCount, jlong maxSize) {
+APDiskLruCache *APDiskLruCache_openWithJavaIoFile_withInt_withInt_withLong_(JavaIoFile *directory, int32_t appVersion, int32_t valueCount, int64_t maxSize) {
   APDiskLruCache_initialize();
   if (maxSize <= 0) {
     @throw new_JavaLangIllegalArgumentException_initWithNSString_(@"maxSize <= 0");
@@ -874,13 +879,13 @@ void APDiskLruCache_processJournal(APDiskLruCache *self) {
   for (id<JavaUtilIterator> i = [((id<JavaUtilCollection>) nil_chk([((JavaUtilLinkedHashMap *) nil_chk(self->lruEntries_)) values])) iterator]; [((id<JavaUtilIterator>) nil_chk(i)) hasNext]; ) {
     APDiskLruCache_Entry *entry_ = [i next];
     if (((APDiskLruCache_Entry *) nil_chk(entry_))->currentEditor_ == nil) {
-      for (jint t = 0; t < self->valueCount_; t++) {
+      for (int32_t t = 0; t < self->valueCount_; t++) {
         self->size_ += IOSLongArray_Get(nil_chk(entry_->lengths_), t);
       }
     }
     else {
       entry_->currentEditor_ = nil;
-      for (jint t = 0; t < self->valueCount_; t++) {
+      for (int32_t t = 0; t < self->valueCount_; t++) {
         APDiskLruCache_deleteIfExistsWithJavaIoFile_([entry_ getCleanFileWithInt:t]);
         APDiskLruCache_deleteIfExistsWithJavaIoFile_([entry_ getDirtyFileWithInt:t]);
       }
@@ -925,51 +930,51 @@ void APDiskLruCache_deleteIfExistsWithJavaIoFile_(JavaIoFile *file) {
   }
 }
 
-APDiskLruCache_Editor *APDiskLruCache_editWithNSString_withLong_(APDiskLruCache *self, NSString *key, jlong expectedSequenceNumber) {
+APDiskLruCache_Editor *APDiskLruCache_editWithNSString_withLong_(APDiskLruCache *self, NSString *key, int64_t expectedSequenceNumber) {
   @synchronized(self) {
     APDiskLruCache_checkNotClosed(self);
     APDiskLruCache_validateKeyWithNSString_(self, key);
     APDiskLruCache_Entry *entry_ = [((JavaUtilLinkedHashMap *) nil_chk(self->lruEntries_)) getWithId:key];
     if (expectedSequenceNumber != APDiskLruCache_ANY_SEQUENCE_NUMBER && (entry_ == nil || entry_->sequenceNumber_ != expectedSequenceNumber)) {
-      return JreRetainedLocalValue(nil);
+      return nil;
     }
     if (entry_ == nil) {
       entry_ = new_APDiskLruCache_Entry_initWithAPDiskLruCache_withNSString_(self, key);
       (void) [self->lruEntries_ putWithId:key withId:entry_];
     }
     else if (entry_->currentEditor_ != nil) {
-      return JreRetainedLocalValue(nil);
+      return nil;
     }
     APDiskLruCache_Editor *editor = new_APDiskLruCache_Editor_initWithAPDiskLruCache_withAPDiskLruCache_Entry_(self, entry_);
     entry_->currentEditor_ = editor;
     [((JavaIoWriter *) nil_chk(self->journalWriter_)) writeWithNSString:JreStrcat("$C$C", APDiskLruCache_DIRTY, ' ', key, 0x000a)];
     [((JavaIoWriter *) nil_chk(self->journalWriter_)) flush];
-    return JreRetainedLocalValue(editor);
+    return editor;
   }
 }
 
-void APDiskLruCache_completeEditWithAPDiskLruCache_Editor_withBoolean_(APDiskLruCache *self, APDiskLruCache_Editor *editor, jboolean success) {
+void APDiskLruCache_completeEditWithAPDiskLruCache_Editor_withBoolean_(APDiskLruCache *self, APDiskLruCache_Editor *editor, bool success) {
   @synchronized(self) {
     APDiskLruCache_Entry *entry_ = ((APDiskLruCache_Editor *) nil_chk(editor))->entry__;
-    if (((APDiskLruCache_Entry *) nil_chk(entry_))->currentEditor_ != editor) {
+    if (!JreObjectEqualsEquals(((APDiskLruCache_Entry *) nil_chk(entry_))->currentEditor_, editor)) {
       @throw new_JavaLangIllegalStateException_init();
     }
     if (success && !entry_->readable_) {
-      for (jint i = 0; i < self->valueCount_; i++) {
+      for (int32_t i = 0; i < self->valueCount_; i++) {
         if (![((JavaIoFile *) nil_chk([entry_ getDirtyFileWithInt:i])) exists]) {
           [editor abort];
           @throw new_JavaLangIllegalStateException_initWithNSString_(JreStrcat("$I", @"edit didn't create file ", i));
         }
       }
     }
-    for (jint i = 0; i < self->valueCount_; i++) {
+    for (int32_t i = 0; i < self->valueCount_; i++) {
       JavaIoFile *dirty = [entry_ getDirtyFileWithInt:i];
       if (success) {
         if ([((JavaIoFile *) nil_chk(dirty)) exists]) {
           JavaIoFile *clean = [entry_ getCleanFileWithInt:i];
           [dirty renameToWithJavaIoFile:clean];
-          jlong oldLength = IOSLongArray_Get(nil_chk(entry_->lengths_), i);
-          jlong newLength = [((JavaIoFile *) nil_chk(clean)) length];
+          int64_t oldLength = IOSLongArray_Get(nil_chk(entry_->lengths_), i);
+          int64_t newLength = [((JavaIoFile *) nil_chk(clean)) length];
           *IOSLongArray_GetRef(entry_->lengths_, i) = newLength;
           self->size_ = self->size_ - oldLength + newLength;
         }
@@ -997,8 +1002,8 @@ void APDiskLruCache_completeEditWithAPDiskLruCache_Editor_withBoolean_(APDiskLru
   }
 }
 
-jboolean APDiskLruCache_journalRebuildRequired(APDiskLruCache *self) {
-  jint REDUNDANT_OP_COMPACT_THRESHOLD = 2000;
+bool APDiskLruCache_journalRebuildRequired(APDiskLruCache *self) {
+  int32_t REDUNDANT_OP_COMPACT_THRESHOLD = 2000;
   return self->redundantOpCount_ >= REDUNDANT_OP_COMPACT_THRESHOLD && self->redundantOpCount_ >= [((JavaUtilLinkedHashMap *) nil_chk(self->lruEntries_)) size];
 }
 
@@ -1028,6 +1033,8 @@ NSString *APDiskLruCache_inputStreamToStringWithJavaIoInputStream_(JavaIoInputSt
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache)
 
+J2OBJC_NAME_MAPPING(APDiskLruCache, "com.applidium.shutterbug.cache", "AP")
+
 @implementation APDiskLruCache_1
 
 - (instancetype)initWithAPDiskLruCache:(APDiskLruCache *)outer$ {
@@ -1038,7 +1045,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache)
 - (JavaLangVoid *)call {
   @synchronized(this$0_) {
     if (this$0_->journalWriter_ == nil) {
-      return JreRetainedLocalValue(nil);
+      return nil;
     }
     APDiskLruCache_trimToSize(this$0_);
     if (APDiskLruCache_journalRebuildRequired(this$0_)) {
@@ -1064,7 +1071,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache)
     { "this$0_", "LAPDiskLruCache;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LAPDiskLruCache;", "LJavaLangException;", "Ljava/lang/Object;Ljava/util/concurrent/Callable<Ljava/lang/Void;>;" };
-  static const J2ObjcClassInfo _APDiskLruCache_1 = { "", "com.applidium.shutterbug.cache", ptrTable, methods, fields, 7, 0x8010, 2, 1, 0, -1, -1, 2, -1 };
+  static const J2ObjcClassInfo _APDiskLruCache_1 = { "", "com.applidium.shutterbug.cache", ptrTable, methods, fields, 7, 0x8000, 2, 1, 0, -1, -1, 2, -1 };
   return &_APDiskLruCache_1;
 }
 
@@ -1087,7 +1094,7 @@ APDiskLruCache_1 *create_APDiskLruCache_1_initWithAPDiskLruCache_(APDiskLruCache
 
 - (instancetype)initWithAPDiskLruCache:(APDiskLruCache *)outer$
                           withNSString:(NSString *)key
-                              withLong:(jlong)sequenceNumber
+                              withLong:(int64_t)sequenceNumber
             withJavaIoInputStreamArray:(IOSObjectArray *)ins {
   APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(self, outer$, key, sequenceNumber, ins);
   return self;
@@ -1097,11 +1104,11 @@ APDiskLruCache_1 *create_APDiskLruCache_1_initWithAPDiskLruCache_(APDiskLruCache
   return APDiskLruCache_editWithNSString_withLong_(this$0_, key_, sequenceNumber_);
 }
 
-- (JavaIoInputStream *)getInputStreamWithInt:(jint)index {
+- (JavaIoInputStream *)getInputStreamWithInt:(int32_t)index {
   return IOSObjectArray_Get(nil_chk(ins_), index);
 }
 
-- (NSString *)getStringWithInt:(jint)index {
+- (NSString *)getStringWithInt:(int32_t)index {
   return APDiskLruCache_inputStreamToStringWithJavaIoInputStream_([self getInputStreamWithInt:index]);
 }
 
@@ -1111,7 +1118,7 @@ APDiskLruCache_1 *create_APDiskLruCache_1_initWithAPDiskLruCache_(APDiskLruCache
     JavaIoInputStream * const *b__ = ((IOSObjectArray *) nil_chk(a__))->buffer_;
     JavaIoInputStream * const *e__ = b__ + a__->size_;
     while (b__ < e__) {
-      JavaIoInputStream *in = *b__++;
+      JavaIoInputStream *in = RETAIN_AND_AUTORELEASE(*b__++);
       APDiskLruCache_closeQuietlyWithJavaIoCloseable_(in);
     }
   }
@@ -1147,7 +1154,7 @@ APDiskLruCache_1 *create_APDiskLruCache_1_initWithAPDiskLruCache_(APDiskLruCache
 
 @end
 
-void APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache_Snapshot *self, APDiskLruCache *outer$, NSString *key, jlong sequenceNumber, IOSObjectArray *ins) {
+void APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache_Snapshot *self, APDiskLruCache *outer$, NSString *key, int64_t sequenceNumber, IOSObjectArray *ins) {
   self->this$0_ = outer$;
   NSObject_init(self);
   self->key_ = key;
@@ -1155,11 +1162,11 @@ void APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJa
   self->ins_ = ins;
 }
 
-APDiskLruCache_Snapshot *new_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, jlong sequenceNumber, IOSObjectArray *ins) {
+APDiskLruCache_Snapshot *new_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, int64_t sequenceNumber, IOSObjectArray *ins) {
   J2OBJC_NEW_IMPL(APDiskLruCache_Snapshot, initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_, outer$, key, sequenceNumber, ins)
 }
 
-APDiskLruCache_Snapshot *create_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, jlong sequenceNumber, IOSObjectArray *ins) {
+APDiskLruCache_Snapshot *create_APDiskLruCache_Snapshot_initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_(APDiskLruCache *outer$, NSString *key, int64_t sequenceNumber, IOSObjectArray *ins) {
   J2OBJC_CREATE_IMPL(APDiskLruCache_Snapshot, initWithAPDiskLruCache_withNSString_withLong_withJavaIoInputStreamArray_, outer$, key, sequenceNumber, ins)
 }
 
@@ -1173,33 +1180,33 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache_Snapshot)
   return self;
 }
 
-- (JavaIoInputStream *)newInputStreamWithInt:(jint)index {
+- (JavaIoInputStream *)newInputStreamWithInt:(int32_t)index {
   @synchronized(this$0_) {
-    if (((APDiskLruCache_Entry *) nil_chk(entry__))->currentEditor_ != self) {
+    if (!JreObjectEqualsEquals(((APDiskLruCache_Entry *) nil_chk(entry__))->currentEditor_, self)) {
       @throw new_JavaLangIllegalStateException_init();
     }
     if (!entry__->readable_) {
-      return JreRetainedLocalValue(nil);
+      return nil;
     }
-    return JreRetainedLocalValue(new_JavaIoFileInputStream_initWithJavaIoFile_([entry__ getCleanFileWithInt:index]));
+    return new_JavaIoFileInputStream_initWithJavaIoFile_([entry__ getCleanFileWithInt:index]);
   }
 }
 
-- (NSString *)getStringWithInt:(jint)index {
+- (NSString *)getStringWithInt:(int32_t)index {
   JavaIoInputStream *in = [self newInputStreamWithInt:index];
   return in != nil ? APDiskLruCache_inputStreamToStringWithJavaIoInputStream_(in) : nil;
 }
 
-- (JavaIoOutputStream *)newOutputStreamWithInt:(jint)index {
+- (JavaIoOutputStream *)newOutputStreamWithInt:(int32_t)index {
   @synchronized(this$0_) {
-    if (((APDiskLruCache_Entry *) nil_chk(entry__))->currentEditor_ != self) {
+    if (!JreObjectEqualsEquals(((APDiskLruCache_Entry *) nil_chk(entry__))->currentEditor_, self)) {
       @throw new_JavaLangIllegalStateException_init();
     }
-    return JreRetainedLocalValue(new_APDiskLruCache_Editor_FaultHidingOutputStream_initWithAPDiskLruCache_Editor_withJavaIoOutputStream_(self, new_JavaIoFileOutputStream_initWithJavaIoFile_([entry__ getDirtyFileWithInt:index])));
+    return new_APDiskLruCache_Editor_FaultHidingOutputStream_initWithAPDiskLruCache_Editor_withJavaIoOutputStream_(self, new_JavaIoFileOutputStream_initWithJavaIoFile_([entry__ getDirtyFileWithInt:index]));
   }
 }
 
-- (void)setWithInt:(jint)index
+- (void)setWithInt:(int32_t)index
       withNSString:(NSString *)value {
   JavaIoWriter *writer = nil;
   @try {
@@ -1283,7 +1290,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache_Editor)
   return self;
 }
 
-- (void)writeWithInt:(jint)oneByte {
+- (void)writeWithInt:(int32_t)oneByte {
   @try {
     [((JavaIoOutputStream *) nil_chk(out_)) writeWithInt:oneByte];
   }
@@ -1293,8 +1300,8 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache_Editor)
 }
 
 - (void)writeWithByteArray:(IOSByteArray *)buffer
-                   withInt:(jint)offset
-                   withInt:(jint)length {
+                   withInt:(int32_t)offset
+                   withInt:(int32_t)length {
   @try {
     [((JavaIoOutputStream *) nil_chk(out_)) writeWithByteArray:buffer withInt:offset withInt:length];
   }
@@ -1375,10 +1382,10 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache_Editor_FaultHidingOutputStream)
   JavaLangStringBuilder *result = new_JavaLangStringBuilder_init();
   {
     IOSLongArray *a__ = lengths_;
-    jlong const *b__ = ((IOSLongArray *) nil_chk(a__))->buffer_;
-    jlong const *e__ = b__ + a__->size_;
+    int64_t const *b__ = ((IOSLongArray *) nil_chk(a__))->buffer_;
+    int64_t const *e__ = b__ + a__->size_;
     while (b__ < e__) {
-      jlong size = *b__++;
+      int64_t size = *b__++;
       (void) [((JavaLangStringBuilder *) nil_chk([result appendWithChar:' '])) appendWithLong:size];
     }
   }
@@ -1393,11 +1400,11 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APDiskLruCache_Editor_FaultHidingOutputStream)
   return APDiskLruCache_Entry_invalidLengthsWithNSStringArray_(self, strings);
 }
 
-- (JavaIoFile *)getCleanFileWithInt:(jint)i {
+- (JavaIoFile *)getCleanFileWithInt:(int32_t)i {
   return new_JavaIoFile_initWithJavaIoFile_withNSString_(this$0_->directory_, JreStrcat("$CI", key_, '.', i));
 }
 
-- (JavaIoFile *)getDirtyFileWithInt:(jint)i {
+- (JavaIoFile *)getDirtyFileWithInt:(int32_t)i {
   return new_JavaIoFile_initWithJavaIoFile_withNSString_(this$0_->directory_, JreStrcat("$CI$", key_, '.', i, @".tmp"));
 }
 
@@ -1455,7 +1462,7 @@ void APDiskLruCache_Entry_setLengthsWithNSStringArray_(APDiskLruCache_Entry *sel
     @throw nil_chk(APDiskLruCache_Entry_invalidLengthsWithNSStringArray_(self, strings));
   }
   @try {
-    for (jint i = 0; i < strings->size_; i++) {
+    for (int32_t i = 0; i < strings->size_; i++) {
       *IOSLongArray_GetRef(nil_chk(self->lengths_), i) = JavaLangLong_parseLongWithNSString_(IOSObjectArray_Get(strings, i));
     }
   }

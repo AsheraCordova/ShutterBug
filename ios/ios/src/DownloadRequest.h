@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\utils\DownloadRequest.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_DownloadRequest")
@@ -17,6 +18,8 @@
 #define APDownloadRequest_
 
 @class ADBitmapFactory_Options;
+@class JavaLangInteger;
+@class NSString;
 @protocol APShutterbugManager_ShutterbugManagerListener;
 
 @interface APDownloadRequest : NSObject
@@ -28,12 +31,12 @@ withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_Shutte
 
 - (instancetype)initWithNSString:(NSString *)url
 withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
-                         withInt:(jint)desiredHeight
-                         withInt:(jint)desiredWidth;
+                         withInt:(int32_t)desiredHeight
+                         withInt:(int32_t)desiredWidth;
 
 - (id<APShutterbugManager_ShutterbugManagerListener>)getListener;
 
-- (jint)getSampleSizeWithADBitmapFactory_Options:(ADBitmapFactory_Options *)options;
+- (int32_t)getSampleSizeWithADBitmapFactory_Options:(ADBitmapFactory_Options *)options;
 
 - (NSString *)getUrl;
 
@@ -51,15 +54,16 @@ FOUNDATION_EXPORT APDownloadRequest *new_APDownloadRequest_initWithNSString_with
 
 FOUNDATION_EXPORT APDownloadRequest *create_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener);
 
-FOUNDATION_EXPORT void APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(APDownloadRequest *self, NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, jint desiredHeight, jint desiredWidth);
+FOUNDATION_EXPORT void APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(APDownloadRequest *self, NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, int32_t desiredHeight, int32_t desiredWidth);
 
-FOUNDATION_EXPORT APDownloadRequest *new_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, jint desiredHeight, jint desiredWidth) NS_RETURNS_RETAINED;
+FOUNDATION_EXPORT APDownloadRequest *new_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, int32_t desiredHeight, int32_t desiredWidth) NS_RETURNS_RETAINED;
 
-FOUNDATION_EXPORT APDownloadRequest *create_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, jint desiredHeight, jint desiredWidth);
+FOUNDATION_EXPORT APDownloadRequest *create_APDownloadRequest_initWithNSString_withAPShutterbugManager_ShutterbugManagerListener_withInt_withInt_(NSString *url, id<APShutterbugManager_ShutterbugManagerListener> listener, int32_t desiredHeight, int32_t desiredWidth);
 
 J2OBJC_TYPE_LITERAL_HEADER(APDownloadRequest)
 
 @compatibility_alias ComApplidiumShutterbugUtilsDownloadRequest APDownloadRequest;
+
 
 #endif
 

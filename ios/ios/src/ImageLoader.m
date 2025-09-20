@@ -3,11 +3,22 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\ashera\shutterbug\ImageLoader.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "Bitmap.h"
 #include "Drawable.h"
 #include "ITarget.h"
 #include "ImageLoader.h"
 #include "J2ObjC_source.h"
+
+
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface ASImageLoader () {
@@ -82,3 +93,5 @@ ASImageLoader *create_ASImageLoader_initWithASITarget_withId_(id<ASITarget> targ
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(ASImageLoader)
+
+J2OBJC_NAME_MAPPING(ASImageLoader, "com.ashera.shutterbug", "AS")

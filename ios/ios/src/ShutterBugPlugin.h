@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\ashera\shutterbug\ShutterBugPlugin.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_ShutterBugPlugin")
@@ -39,6 +40,7 @@ FOUNDATION_EXPORT void ASShutterBugPlugin_initPlugin(void);
 J2OBJC_TYPE_LITERAL_HEADER(ASShutterBugPlugin)
 
 @compatibility_alias ComAsheraShutterbugShutterBugPlugin ASShutterBugPlugin;
+
 
 #endif
 

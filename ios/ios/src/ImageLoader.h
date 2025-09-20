@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\ashera\shutterbug\ImageLoader.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_ImageLoader")
@@ -21,6 +22,7 @@
 #include "ShutterbugImageCallBack.h"
 
 @class ADDrawable;
+@class NSString;
 @protocol ADBitmap;
 @protocol ASITarget;
 
@@ -54,6 +56,7 @@ FOUNDATION_EXPORT ASImageLoader *create_ASImageLoader_initWithASITarget_withId_(
 J2OBJC_TYPE_LITERAL_HEADER(ASImageLoader)
 
 @compatibility_alias ComAsheraShutterbugImageLoader ASImageLoader;
+
 
 #endif
 

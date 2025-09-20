@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\ShutterbugManager.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_ShutterbugManager")
@@ -30,6 +31,8 @@
 @class APImageCache;
 @class APShutterbugDownloader;
 @class JavaIoInputStream;
+@class JavaLangInteger;
+@class NSString;
 @protocol ADBitmap;
 @protocol APShutterbugImageCallBack;
 @protocol APShutterbugManager_ShutterbugManagerListener;
@@ -51,16 +54,16 @@ withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView;
 - (void)downloadWithNSString:(NSString *)url
               withADDrawable:(ADDrawable *)placeHolder
 withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView
-                     withInt:(jint)desiredHeight
-                     withInt:(jint)desiredWidth;
+                     withInt:(int32_t)desiredHeight
+                     withInt:(int32_t)desiredWidth;
 
 - (void)downloadWithNSString:(NSString *)url
 withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener;
 
 - (void)downloadWithNSString:(NSString *)url
 withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
-                     withInt:(jint)desiredHeight
-                     withInt:(jint)desiredWidth;
+                     withInt:(int32_t)desiredHeight
+                     withInt:(int32_t)desiredWidth;
 
 + (NSString *)getCacheKeyWithNSString:(NSString *)url;
 
@@ -104,12 +107,14 @@ J2OBJC_TYPE_LITERAL_HEADER(APShutterbugManager)
 
 @compatibility_alias ComApplidiumShutterbugShutterbugManager APShutterbugManager;
 
+
 #endif
 
 #if !defined (APShutterbugManager_ShutterbugManagerListener_) && (INCLUDE_ALL_ShutterbugManager || defined(INCLUDE_APShutterbugManager_ShutterbugManagerListener))
 #define APShutterbugManager_ShutterbugManagerListener_
 
 @class APShutterbugManager;
+@class NSString;
 @protocol ADBitmap;
 
 @protocol APShutterbugManager_ShutterbugManagerListener < JavaObject >
@@ -126,6 +131,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APShutterbugManager)
 J2OBJC_EMPTY_STATIC_INIT(APShutterbugManager_ShutterbugManagerListener)
 
 J2OBJC_TYPE_LITERAL_HEADER(APShutterbugManager_ShutterbugManagerListener)
+
 
 #endif
 

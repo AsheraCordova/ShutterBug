@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\utils\BitmapFactoryScale.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_BitmapFactoryScale")
@@ -45,6 +46,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APBitmapFactoryScale)
 
 @compatibility_alias ComApplidiumShutterbugUtilsBitmapFactoryScale APBitmapFactoryScale;
 
+
 #endif
 
 #if !defined (APBitmapFactoryScale_InputStreamGenerator_) && (INCLUDE_ALL_BitmapFactoryScale || defined(INCLUDE_APBitmapFactoryScale_InputStreamGenerator))
@@ -61,6 +63,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APBitmapFactoryScale)
 J2OBJC_EMPTY_STATIC_INIT(APBitmapFactoryScale_InputStreamGenerator)
 
 J2OBJC_TYPE_LITERAL_HEADER(APBitmapFactoryScale_InputStreamGenerator)
+
 
 #endif
 

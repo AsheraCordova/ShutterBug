@@ -3,13 +3,26 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\utils\BitmapFactoryScale.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "Bitmap.h"
 #include "BitmapFactory.h"
 #include "BitmapFactoryScale.h"
 #include "DownloadRequest.h"
 #include "J2ObjC_source.h"
 #include "java/io/InputStream.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Integer.h"
 #include "java/lang/OutOfMemoryError.h"
+
+
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface APBitmapFactoryScale_InputStreamGenerator : NSObject
@@ -80,6 +93,8 @@ id<ADBitmap> APBitmapFactoryScale_decodeSampledBitmapFromStreamWithAPBitmapFacto
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APBitmapFactoryScale)
+
+J2OBJC_NAME_MAPPING(APBitmapFactoryScale, "com.applidium.shutterbug.utils", "AP")
 
 @implementation APBitmapFactoryScale_InputStreamGenerator
 

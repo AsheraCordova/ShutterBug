@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\ShutterbugImageCallBack.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_ShutterbugImageCallBack")
@@ -17,6 +18,7 @@
 #define APShutterbugImageCallBack_
 
 @class ADDrawable;
+@class NSString;
 @protocol ADBitmap;
 
 @protocol APShutterbugImageCallBack < JavaObject >
@@ -34,6 +36,7 @@ J2OBJC_EMPTY_STATIC_INIT(APShutterbugImageCallBack)
 J2OBJC_TYPE_LITERAL_HEADER(APShutterbugImageCallBack)
 
 #define ComApplidiumShutterbugShutterbugImageCallBack APShutterbugImageCallBack
+
 
 #endif
 

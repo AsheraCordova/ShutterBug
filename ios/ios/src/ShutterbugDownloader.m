@@ -3,6 +3,11 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\downloader\ShutterbugDownloader.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "AsyncTask.h"
 #include "DownloadRequest.h"
 #include "IOSClass.h"
@@ -13,13 +18,22 @@
 #include "java/io/IOException.h"
 #include "java/io/InputStream.h"
 #include "java/io/PrintStream.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Character.h"
+#include "java/lang/Integer.h"
+#include "java/lang/Long.h"
 #include "java/lang/System.h"
 #include "java/lang/Void.h"
 #include "java/net/HttpURLConnection.h"
 #include "java/net/URL.h"
 #include "java/net/URLConnection.h"
 
-@class JavaIoInputStream;
+
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface APShutterbugDownloader () {
@@ -39,9 +53,9 @@ J2OBJC_FIELD_SETTER(APShutterbugDownloader, mImageData_, IOSByteArray *)
 J2OBJC_FIELD_SETTER(APShutterbugDownloader, mDownloadRequest_, APDownloadRequest *)
 J2OBJC_FIELD_SETTER(APShutterbugDownloader, mCurrentTask_, ADAsyncTask *)
 
-inline jint APShutterbugDownloader_get_TIMEOUT(void);
+inline int32_t APShutterbugDownloader_get_TIMEOUT(void);
 #define APShutterbugDownloader_TIMEOUT 30000
-J2OBJC_STATIC_FIELD_CONSTANT(APShutterbugDownloader, TIMEOUT, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(APShutterbugDownloader, TIMEOUT, int32_t)
 
 @interface APShutterbugDownloader_ShutterbugDownloaderListener : NSObject
 
@@ -67,6 +81,7 @@ __attribute__((unused)) static void APShutterbugDownloader_1_initWithAPShutterbu
 __attribute__((unused)) static APShutterbugDownloader_1 *new_APShutterbugDownloader_1_initWithAPShutterbugDownloader_(APShutterbugDownloader *outer$) NS_RETURNS_RETAINED;
 
 __attribute__((unused)) static APShutterbugDownloader_1 *create_APShutterbugDownloader_1_initWithAPShutterbugDownloader_(APShutterbugDownloader *outer$);
+
 
 @implementation APShutterbugDownloader
 
@@ -156,6 +171,8 @@ APShutterbugDownloader *create_APShutterbugDownloader_initWithNSString_withAPShu
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APShutterbugDownloader)
 
+J2OBJC_NAME_MAPPING(APShutterbugDownloader, "com.applidium.shutterbug.downloader", "AP")
+
 @implementation APShutterbugDownloader_ShutterbugDownloaderListener
 
 + (const J2ObjcClassInfo *)__metadata {
@@ -187,7 +204,7 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(APShutterbugDownloader_ShutterbugDownloader
 
 - (JavaIoInputStream *)doInBackgroundWithNSObjectArray:(IOSObjectArray *)params {
   @try {
-    jlong t0 = JavaLangSystem_currentTimeMillis();
+    int64_t t0 = JavaLangSystem_currentTimeMillis();
     [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$", @"starting download ", this$0_->mUrl_)];
     JavaNetURL *imageUrl = new_JavaNetURL_initWithNSString_(this$0_->mUrl_);
     JavaNetHttpURLConnection *connection = (JavaNetHttpURLConnection *) cast_chk([imageUrl openConnection], [JavaNetHttpURLConnection class]);
@@ -195,7 +212,7 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(APShutterbugDownloader_ShutterbugDownloader
     [connection setReadTimeoutWithInt:APShutterbugDownloader_TIMEOUT];
     [connection setInstanceFollowRedirectsWithBoolean:true];
     JavaIoInputStream *inputStream = [connection getInputStream];
-    [((JavaIoPrintStream *) nil_chk(JreLoadStatic(JavaLangSystem, out))) printlnWithNSString:JreStrcat("$$CJ", @"end download ", this$0_->mUrl_, ' ', (JavaLangSystem_currentTimeMillis() - t0))];
+    [JreLoadStatic(JavaLangSystem, out) printlnWithNSString:JreStrcat("$$CJ", @"end download ", this$0_->mUrl_, ' ', (JavaLangSystem_currentTimeMillis() - t0))];
     return inputStream;
   }
   @catch (JavaIoIOException *e) {
@@ -233,7 +250,7 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(APShutterbugDownloader_ShutterbugDownloader
     { "this$0_", "LAPShutterbugDownloader;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LAPShutterbugDownloader;", "doInBackground", "[LJavaLangVoid;", "onPostExecute", "LJavaIoInputStream;", "start", "Lr/android/os/AsyncTask<Ljava/lang/Void;Ljava/lang/Void;Ljava/io/InputStream;>;" };
-  static const J2ObjcClassInfo _APShutterbugDownloader_1 = { "", "com.applidium.shutterbug.downloader", ptrTable, methods, fields, 7, 0x8010, 3, 1, 0, -1, 5, 6, -1 };
+  static const J2ObjcClassInfo _APShutterbugDownloader_1 = { "", "com.applidium.shutterbug.downloader", ptrTable, methods, fields, 7, 0x8000, 3, 1, 0, -1, 5, 6, -1 };
   return &_APShutterbugDownloader_1;
 }
 

@@ -3,6 +3,11 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\ShutterbugManager.java
 //
 
+#define J2OBJC_IMPORTED_BY_JAVA_IMPLEMENTATION 1
+
+
+
+
 #include "AsyncTask.h"
 #include "Bitmap.h"
 #include "BitmapFactoryScale.h"
@@ -20,6 +25,8 @@
 #include "ShutterbugManager.h"
 #include "java/io/InputStream.h"
 #include "java/io/UnsupportedEncodingException.h"
+#include "java/lang/Boolean.h"
+#include "java/lang/Integer.h"
 #include "java/math/BigInteger.h"
 #include "java/security/MessageDigest.h"
 #include "java/security/NoSuchAlgorithmException.h"
@@ -30,9 +37,12 @@
 #include "java/util/Map.h"
 #include "java/util/Queue.h"
 
-@class JavaIoInputStream;
-@protocol JavaUtilList;
-@protocol JavaUtilMap;
+
+@class NSString;
+
+
+#pragma clang diagnostic error "-Wreturn-type"
+#pragma clang diagnostic ignored "-Wswitch"
 
 
 @interface APShutterbugManager () {
@@ -47,8 +57,8 @@
   id<JavaUtilList> mDownloaders_;
 }
 
-- (jint)getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
-                                                             withNSString:(NSString *)url;
+- (int32_t)getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
+                                                                withNSString:(NSString *)url;
 
 @end
 
@@ -66,11 +76,11 @@ inline APShutterbugManager *APShutterbugManager_set_sImageManager(APShutterbugMa
 static APShutterbugManager *APShutterbugManager_sImageManager;
 J2OBJC_STATIC_FIELD_OBJ(APShutterbugManager, sImageManager, APShutterbugManager *)
 
-inline jint APShutterbugManager_get_LISTENER_NOT_FOUND(void);
+inline int32_t APShutterbugManager_get_LISTENER_NOT_FOUND(void);
 #define APShutterbugManager_LISTENER_NOT_FOUND -1
-J2OBJC_STATIC_FIELD_CONSTANT(APShutterbugManager, LISTENER_NOT_FOUND, jint)
+J2OBJC_STATIC_FIELD_CONSTANT(APShutterbugManager, LISTENER_NOT_FOUND, int32_t)
 
-__attribute__((unused)) static jint APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(APShutterbugManager *self, id<APShutterbugManager_ShutterbugManagerListener> listener, NSString *url);
+__attribute__((unused)) static int32_t APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(APShutterbugManager *self, id<APShutterbugManager_ShutterbugManagerListener> listener, NSString *url);
 
 @interface APShutterbugManager_ShutterbugManagerListener : NSObject
 
@@ -106,6 +116,7 @@ __attribute__((unused)) static APShutterbugManager_InputStreamHandlingTask *crea
 
 J2OBJC_TYPE_LITERAL_HEADER(APShutterbugManager_InputStreamHandlingTask)
 
+
 @interface APShutterbugManager_InputStreamHandlingTask_1 : NSObject < APBitmapFactoryScale_InputStreamGenerator > {
  @public
   APImageCache *val$sharedImageCache_;
@@ -126,6 +137,7 @@ __attribute__((unused)) static void APShutterbugManager_InputStreamHandlingTask_
 __attribute__((unused)) static APShutterbugManager_InputStreamHandlingTask_1 *new_APShutterbugManager_InputStreamHandlingTask_1_initWithAPImageCache_withNSString_(APImageCache *capture$0, NSString *capture$1) NS_RETURNS_RETAINED;
 
 __attribute__((unused)) static APShutterbugManager_InputStreamHandlingTask_1 *create_APShutterbugManager_InputStreamHandlingTask_1_initWithAPImageCache_withNSString_(APImageCache *capture$0, NSString *capture$1);
+
 
 @interface APShutterbugManager_ImageManagerListener : NSObject < APShutterbugManager_ShutterbugManagerListener > {
  @public
@@ -155,6 +167,7 @@ __attribute__((unused)) static APShutterbugManager_ImageManagerListener *create_
 
 J2OBJC_TYPE_LITERAL_HEADER(APShutterbugManager_ImageManagerListener)
 
+
 @implementation APShutterbugManager
 
 - (instancetype)initWithADContext:(ADContext *)context {
@@ -173,8 +186,8 @@ withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_Shutte
 
 - (void)downloadWithNSString:(NSString *)url
 withAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
-                     withInt:(jint)desiredHeight
-                     withInt:(jint)desiredWidth {
+                     withInt:(int32_t)desiredHeight
+                     withInt:(int32_t)desiredWidth {
   if (url == nil || listener == nil || [((id<JavaUtilList>) nil_chk(mFailedUrls_)) containsWithId:url]) {
     return;
   }
@@ -192,8 +205,8 @@ withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView {
 - (void)downloadWithNSString:(NSString *)url
               withADDrawable:(ADDrawable *)placeHolder
 withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView
-                     withInt:(jint)desiredHeight
-                     withInt:(jint)desiredWidth {
+                     withInt:(int32_t)desiredHeight
+                     withInt:(int32_t)desiredWidth {
   [((id<APShutterbugImageCallBack>) nil_chk(imageView)) setImageDrawableWithADDrawable:placeHolder];
   [self cancelWithAPShutterbugImageCallBack:imageView];
   [self downloadWithNSString:url withAPShutterbugManager_ShutterbugManagerListener:new_APShutterbugManager_ImageManagerListener_initWithAPShutterbugImageCallBack_(imageView) withInt:desiredHeight withInt:desiredWidth];
@@ -203,8 +216,8 @@ withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView
   return APShutterbugManager_getCacheKeyWithNSString_(url);
 }
 
-- (jint)getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
-                                                             withNSString:(NSString *)url {
+- (int32_t)getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener
+                                                                withNSString:(NSString *)url {
   return APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(self, listener, url);
 }
 
@@ -214,7 +227,7 @@ withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView
                withAPDownloadRequest:(APDownloadRequest *)downloadRequest {
   NSString *url = [((APDownloadRequest *) nil_chk(downloadRequest)) getUrl];
   id<APShutterbugManager_ShutterbugManagerListener> listener = [downloadRequest getListener];
-  jint idx = APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(self, listener, url);
+  int32_t idx = APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(self, listener, url);
   if (idx == APShutterbugManager_LISTENER_NOT_FOUND) {
     return;
   }
@@ -228,7 +241,7 @@ withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView
                   withAPDownloadRequest:(APDownloadRequest *)downloadRequest {
   NSString *url = [((APDownloadRequest *) nil_chk(downloadRequest)) getUrl];
   id<APShutterbugManager_ShutterbugManagerListener> listener = [downloadRequest getListener];
-  jint idx = APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(self, listener, url);
+  int32_t idx = APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(self, listener, url);
   if (idx == APShutterbugManager_LISTENER_NOT_FOUND) {
     return;
   }
@@ -253,10 +266,10 @@ withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView
 
 - (void)onImageDownloadFailureWithAPShutterbugDownloader:(APShutterbugDownloader *)downloader
                                    withAPDownloadRequest:(APDownloadRequest *)downloadRequest {
-  for (jint idx = [((id<JavaUtilList>) nil_chk(mDownloaders_)) size] - 1; idx >= 0; idx--) {
-    jint uidx = idx;
+  for (int32_t idx = [((id<JavaUtilList>) nil_chk(mDownloaders_)) size] - 1; idx >= 0; idx--) {
+    int32_t uidx = idx;
     APShutterbugDownloader *aDownloader = [((id<JavaUtilList>) nil_chk(mDownloaders_)) getWithInt:uidx];
-    if (aDownloader == downloader) {
+    if (JreObjectEqualsEquals(aDownloader, downloader)) {
       id<APShutterbugManager_ShutterbugManagerListener> listener = [((id<JavaUtilList>) nil_chk(mDownloadImageListeners_)) getWithInt:uidx];
       [((id<APShutterbugManager_ShutterbugManagerListener>) nil_chk(listener)) onImageFailureWithAPShutterbugManager:self withNSString:[((APDownloadRequest *) nil_chk(downloadRequest)) getUrl]];
       (void) [((id<JavaUtilList>) nil_chk(mDownloaders_)) removeWithInt:uidx];
@@ -267,7 +280,7 @@ withAPShutterbugImageCallBack:(id<APShutterbugImageCallBack>)imageView
 }
 
 - (void)cancelWithAPShutterbugManager_ShutterbugManagerListener:(id<APShutterbugManager_ShutterbugManagerListener>)listener {
-  jint idx;
+  int32_t idx;
   while ((idx = [((id<JavaUtilList>) nil_chk(mCacheListeners_)) indexOfWithId:listener]) != -1) {
     (void) [((id<JavaUtilList>) nil_chk(mCacheListeners_)) removeWithInt:idx];
     (void) [((id<JavaUtilList>) nil_chk(mCacheUrls_)) removeWithInt:idx];
@@ -399,9 +412,9 @@ NSString *APShutterbugManager_getCacheKeyWithNSString_(NSString *url) {
   return nil;
 }
 
-jint APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(APShutterbugManager *self, id<APShutterbugManager_ShutterbugManagerListener> listener, NSString *url) {
-  for (jint index = 0; index < [((id<JavaUtilList>) nil_chk(self->mCacheListeners_)) size]; index++) {
-    if ([((id<JavaUtilList>) nil_chk(self->mCacheListeners_)) getWithInt:index] == listener && [((NSString *) nil_chk([((id<JavaUtilList>) nil_chk(self->mCacheUrls_)) getWithInt:index])) isEqual:url]) {
+int32_t APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManagerListener_withNSString_(APShutterbugManager *self, id<APShutterbugManager_ShutterbugManagerListener> listener, NSString *url) {
+  for (int32_t index = 0; index < [((id<JavaUtilList>) nil_chk(self->mCacheListeners_)) size]; index++) {
+    if (JreObjectEqualsEquals([((id<JavaUtilList>) nil_chk(self->mCacheListeners_)) getWithInt:index], listener) && [((NSString *) nil_chk([((id<JavaUtilList>) nil_chk(self->mCacheUrls_)) getWithInt:index])) isEqual:url]) {
       return index;
     }
   }
@@ -409,6 +422,8 @@ jint APShutterbugManager_getListenerIndexWithAPShutterbugManager_ShutterbugManag
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APShutterbugManager)
+
+J2OBJC_NAME_MAPPING(APShutterbugManager, "com.applidium.shutterbug", "AP")
 
 @implementation APShutterbugManager_ShutterbugManagerListener
 
@@ -456,10 +471,10 @@ J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(APShutterbugManager_ShutterbugManagerListen
 }
 
 - (void)onPostExecuteWithId:(id<ADBitmap>)bitmap {
-  for (jint idx = [((id<JavaUtilList>) nil_chk(this$0_->mDownloaders_)) size] - 1; idx >= 0; idx--) {
-    jint uidx = idx;
+  for (int32_t idx = [((id<JavaUtilList>) nil_chk(this$0_->mDownloaders_)) size] - 1; idx >= 0; idx--) {
+    int32_t uidx = idx;
     APShutterbugDownloader *aDownloader = [((id<JavaUtilList>) nil_chk(this$0_->mDownloaders_)) getWithInt:uidx];
-    if (aDownloader == mDownloader_) {
+    if (JreObjectEqualsEquals(aDownloader, mDownloader_)) {
       id<APShutterbugManager_ShutterbugManagerListener> listener = [((id<JavaUtilList>) nil_chk(this$0_->mDownloadImageListeners_)) getWithInt:uidx];
       if (bitmap != nil) {
         [((id<APShutterbugManager_ShutterbugManagerListener>) nil_chk(listener)) onImageSuccessWithAPShutterbugManager:this$0_ withADBitmap:bitmap withNSString:[((APDownloadRequest *) nil_chk(mDownloadRequest_)) getUrl]];
@@ -549,7 +564,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(APShutterbugManager_InputStreamHandlingTask)
     { "val$cacheKey_", "LNSString;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LAPImageCache;LNSString;", "LAPShutterbugManager_InputStreamHandlingTask;", "doInBackgroundWithNSObjectArray:" };
-  static const J2ObjcClassInfo _APShutterbugManager_InputStreamHandlingTask_1 = { "", "com.applidium.shutterbug", ptrTable, methods, fields, 7, 0x8010, 2, 2, 1, -1, 2, -1, -1 };
+  static const J2ObjcClassInfo _APShutterbugManager_InputStreamHandlingTask_1 = { "", "com.applidium.shutterbug", ptrTable, methods, fields, 7, 0x8000, 2, 2, 1, -1, 2, -1, -1 };
   return &_APShutterbugManager_InputStreamHandlingTask_1;
 }
 

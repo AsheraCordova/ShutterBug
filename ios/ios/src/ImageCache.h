@@ -3,6 +3,7 @@
 //  source: D:\Java\git\core-ios-widgets\IOSShutterBugPlugin\src\main\java\com\applidium\shutterbug\cache\ImageCache.java
 //
 
+#import <Foundation/Foundation.h>
 #include "J2ObjC_header.h"
 
 #pragma push_macro("INCLUDE_ALL_ImageCache")
@@ -20,6 +21,7 @@
 @class APDiskLruCache_Snapshot;
 @class APDownloadRequest;
 @class JavaIoInputStream;
+@class NSString;
 @protocol ADBitmap;
 @protocol APImageCache_ImageCacheListener;
 
@@ -67,6 +69,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APImageCache)
 
 @compatibility_alias ComApplidiumShutterbugCacheImageCache APImageCache;
 
+
 #endif
 
 #if !defined (APImageCache_ImageCacheListener_) && (INCLUDE_ALL_ImageCache || defined(INCLUDE_APImageCache_ImageCacheListener))
@@ -74,6 +77,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APImageCache)
 
 @class APDownloadRequest;
 @class APImageCache;
+@class NSString;
 @protocol ADBitmap;
 
 @protocol APImageCache_ImageCacheListener < JavaObject >
@@ -92,6 +96,7 @@ J2OBJC_TYPE_LITERAL_HEADER(APImageCache)
 J2OBJC_EMPTY_STATIC_INIT(APImageCache_ImageCacheListener)
 
 J2OBJC_TYPE_LITERAL_HEADER(APImageCache_ImageCacheListener)
+
 
 #endif
 
