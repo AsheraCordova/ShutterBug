@@ -1,3 +1,18 @@
+//start - license
+/*
+ * Copyright (c) 2025 Ashera Cordova
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ */
+//end - license
 /*
  * Copyright (C) 2011 The Android Open Source Project
  *
@@ -101,7 +116,7 @@ public final class DiskLruCache implements Closeable {
     private static final String REMOVE = "REMOVE";
     private static final String READ = "READ";
 
-    /* XXX From java.util.Arrays */
+   /* XXX From java.util.Arrays */
     @SuppressWarnings("unchecked")
     private static <T> T[] copyOfRange(T[] original, int start, int end) {
         int originalLength = original.length; // For exception priority compatibility.
@@ -118,10 +133,10 @@ public final class DiskLruCache implements Closeable {
         return result;
     }
 
-    /* XXX From java.nio.charset.Charsets */
+   /* XXX From java.nio.charset.Charsets */
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
-    /* XXX From r.libcore.io.IoUtils */
+   /* XXX From r.libcore.io.IoUtils */
     private static void deleteContents(File dir) throws IOException {
         File[] files = dir.listFiles();
         if (files == null) {
@@ -137,7 +152,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /* XXX From r.libcore.io.IoUtils */
+   /* XXX From r.libcore.io.IoUtils */
     private static void closeQuietly(/*Auto*/Closeable closeable) {
         if (closeable != null) {
             try {
@@ -149,7 +164,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /* XXX From r.libcore.io.Streams */
+   /* XXX From r.libcore.io.Streams */
     private static String readFully(Reader reader) throws IOException {
         try {
             StringWriter writer = new StringWriter();
@@ -164,7 +179,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /* XXX From r.libcore.io.Streams */
+   /* XXX From r.libcore.io.Streams */
     private static String readAsciiLine(InputStream in) throws IOException {
         // TODO: support UTF-8 here instead
 
@@ -186,7 +201,7 @@ public final class DiskLruCache implements Closeable {
         return result.toString();
     }
 
-    /*
+   /*
      * This cache uses a journal file named "journal". A typical journal file
      * looks like this:
      *     r.libcore.io.DiskLruCache
@@ -238,14 +253,14 @@ public final class DiskLruCache implements Closeable {
             = new LinkedHashMap<String, Entry>(0, 0.75f, true);
     private int redundantOpCount;
 
-    /**
+   /**
      * To differentiate between old and current snapshots, each entry is given
      * a sequence number each time an edit is committed. A snapshot is stale if
      * its sequence number is not equal to its entry's sequence number.
      */
     private long nextSequenceNumber = 0;
 
-    /** This cache uses a single background thread to evict entries. */
+   /** This cache uses a single background thread to evict entries. */
     private final ExecutorService executorService = new ThreadPoolExecutor(0, 1,
             60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
     private final Callable<Void> cleanupCallable = new Callable<Void>() {
@@ -273,7 +288,7 @@ public final class DiskLruCache implements Closeable {
         this.maxSize = maxSize;
     }
 
-    /**
+   /**
      * Opens the cache in {@code directory}, creating a cache if none exists
      * there.
      *
@@ -317,11 +332,11 @@ public final class DiskLruCache implements Closeable {
     private void readJournal() throws IOException {
         InputStream in = new BufferedInputStream(new FileInputStream(journalFile));
         try {
-            String magic = /*Streams.*/readAsciiLine(in);
-            String version = /*Streams.*/readAsciiLine(in);
-            String appVersionString = /*Streams.*/readAsciiLine(in);
-            String valueCountString = /*Streams.*/readAsciiLine(in);
-            String blank = /*Streams.*/readAsciiLine(in);
+            String magic =/*Streams.*/readAsciiLine(in);
+            String version =/*Streams.*/readAsciiLine(in);
+            String appVersionString =/*Streams.*/readAsciiLine(in);
+            String valueCountString =/*Streams.*/readAsciiLine(in);
+            String blank =/*Streams.*/readAsciiLine(in);
             if (!MAGIC.equals(magic)
                     || !VERSION_1.equals(version)
                     || !Integer.toString(appVersion).equals(appVersionString)
@@ -339,7 +354,7 @@ public final class DiskLruCache implements Closeable {
                 }
             }
         } finally {
-            /*IoUtils.*/closeQuietly(in);
+           /*IoUtils.*/closeQuietly(in);
         }
     }
 
@@ -374,7 +389,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /**
+   /**
      * Computes the initial size and collects garbage as a part of opening the
      * cache. Dirty entries are assumed to be inconsistent and will be deleted.
      */
@@ -397,7 +412,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /**
+   /**
      * Creates a new journal that omits redundant information. This replaces the
      * current journal if it exists.
      */
@@ -431,7 +446,7 @@ public final class DiskLruCache implements Closeable {
     }
 
     private static void deleteIfExists(File file) throws IOException {
-        /*try {
+       /*try {
             Libcore.os.remove(file.getPath());
         } catch (ErrnoException errnoException) {
             if (errnoException.errno != OsConstants.ENOENT) {
@@ -443,7 +458,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /**
+   /**
      * Returns a snapshot of the entry named {@code key}, or null if it doesn't
      * exist is not currently readable. If a value is returned, it is moved to
      * the head of the LRU queue.
@@ -459,7 +474,7 @@ public final class DiskLruCache implements Closeable {
         if (!entry.readable) {
             return null;
         }
-        /*
+       /*
          * Open all streams eagerly to guarantee that we see a single published
          * snapshot. If we opened streams lazily then the streams could come
          * from different edits.
@@ -483,7 +498,7 @@ public final class DiskLruCache implements Closeable {
         return new Snapshot(key, entry.sequenceNumber, ins);
     }
 
-    /**
+   /**
      * Returns an editor for the entry named {@code key}, or null if another
      * edit is in progress.
      */
@@ -515,14 +530,14 @@ public final class DiskLruCache implements Closeable {
         return editor;
     }
 
-    /**
+   /**
      * Returns the directory where this cache stores its data.
      */
     public File getDirectory() {
         return directory;
     }
 
-    /**
+   /**
      * Returns the maximum number of bytes that this cache should use to store
      * its data.
      */
@@ -530,7 +545,7 @@ public final class DiskLruCache implements Closeable {
         return maxSize;
     }
 
-    /**
+   /**
      * Returns the number of bytes currently being used to store the values in
      * this cache. This may be greater than the max size if a background
      * deletion is pending.
@@ -589,7 +604,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /**
+   /**
      * We only rebuild the journal when it will halve the size of the journal
      * and eliminate at least 2000 ops.
      */
@@ -599,7 +614,7 @@ public final class DiskLruCache implements Closeable {
                 && redundantOpCount >= lruEntries.size();
     }
 
-    /**
+   /**
      * Drops the entry for {@code key} if it exists and can be removed. Entries
      * actively being edited cannot be removed.
      *
@@ -633,7 +648,7 @@ public final class DiskLruCache implements Closeable {
         return true;
     }
 
-    /**
+   /**
      * Returns true if this cache has been closed.
      */
     public boolean isClosed() {
@@ -646,7 +661,7 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /**
+   /**
      * Force buffered operations to the filesystem.
      */
     public synchronized void flush() throws IOException {
@@ -655,7 +670,7 @@ public final class DiskLruCache implements Closeable {
         journalWriter.flush();
     }
 
-    /**
+   /**
      * Closes this cache. Stored values will remain on the filesystem.
      */
     public synchronized void close() throws IOException {
@@ -679,14 +694,14 @@ public final class DiskLruCache implements Closeable {
         }
     }
 
-    /**
+   /**
      * Closes the cache and deletes all of its stored values. This will delete
      * all files in the cache directory including files that weren't created by
      * the cache.
      */
     public void delete() throws IOException {
         close();
-        /*IoUtils.*/deleteContents(directory);
+       /*IoUtils.*/deleteContents(directory);
     }
 
     private void validateKey(String key) {
@@ -697,10 +712,10 @@ public final class DiskLruCache implements Closeable {
     }
 
     private static String inputStreamToString(InputStream in) throws IOException {
-        return /*Streams.*/readFully(new InputStreamReader(in, /*Charsets.*/UTF_8));
+        return/*Streams.*/readFully(new InputStreamReader(in,/*Charsets.*/UTF_8));
     }
 
-    /**
+   /**
      * A snapshot of the values for an entry.
      */
     public final class Snapshot implements Closeable {
@@ -714,7 +729,7 @@ public final class DiskLruCache implements Closeable {
             this.ins = ins;
         }
 
-        /**
+       /**
          * Returns an editor for this snapshot's entry, or null if either the
          * entry has changed since this snapshot was created or if another edit
          * is in progress.
@@ -723,14 +738,14 @@ public final class DiskLruCache implements Closeable {
             return DiskLruCache.this.edit(key, sequenceNumber);
         }
 
-        /**
+       /**
          * Returns the unbuffered stream with the value for {@code index}.
          */
         public InputStream getInputStream(int index) {
             return ins[index];
         }
 
-        /**
+       /**
          * Returns the string value for {@code index}.
          */
         public String getString(int index) throws IOException {
@@ -739,12 +754,12 @@ public final class DiskLruCache implements Closeable {
 
         @Override public void close() {
             for (InputStream in : ins) {
-                /*IoUtils.*/closeQuietly(in);
+               /*IoUtils.*/closeQuietly(in);
             }
         }
     }
 
-    /**
+   /**
      * Edits the values for an entry.
      */
     public final class Editor {
@@ -755,7 +770,7 @@ public final class DiskLruCache implements Closeable {
             this.entry = entry;
         }
 
-        /**
+       /**
          * Returns an unbuffered input stream to read the last committed value,
          * or null if no value has been committed.
          */
@@ -771,7 +786,7 @@ public final class DiskLruCache implements Closeable {
             }
         }
 
-        /**
+       /**
          * Returns the last committed value as a string, or null if no value
          * has been committed.
          */
@@ -780,7 +795,7 @@ public final class DiskLruCache implements Closeable {
             return in != null ? inputStreamToString(in) : null;
         }
 
-        /**
+       /**
          * Returns a new unbuffered output stream to write the value at
          * {@code index}. If the underlying output stream encounters errors
          * when writing to the filesystem, this edit will be aborted when
@@ -796,20 +811,20 @@ public final class DiskLruCache implements Closeable {
             }
         }
 
-        /**
+       /**
          * Sets the value at {@code index} to {@code value}.
          */
         public void set(int index, String value) throws IOException {
             Writer writer = null;
             try {
-                writer = new OutputStreamWriter(newOutputStream(index), /*Charsets.*/UTF_8);
+                writer = new OutputStreamWriter(newOutputStream(index),/*Charsets.*/UTF_8);
                 writer.write(value);
             } finally {
-                /*IoUtils.*/closeQuietly(writer);
+               /*IoUtils.*/closeQuietly(writer);
             }
         }
 
-        /**
+       /**
          * Commits this edit so it is visible to readers.  This releases the
          * edit lock so another edit may be started on the same key.
          */
@@ -824,7 +839,7 @@ public final class DiskLruCache implements Closeable {
             journalWriter.flush();
         }
 
-        /**
+       /**
          * Aborts this edit. This releases the edit lock so another edit may be
          * started on the same key.
          */
@@ -874,16 +889,16 @@ public final class DiskLruCache implements Closeable {
     private final class Entry {
         private final String key;
 
-        /** Lengths of this entry's files. */
+       /** Lengths of this entry's files. */
         private final long[] lengths;
 
-        /** True if this entry has ever been published */
+       /** True if this entry has ever been published */
         private boolean readable;
 
-        /** The ongoing edit or null if this entry is not being edited. */
+       /** The ongoing edit or null if this entry is not being edited. */
         private Editor currentEditor;
 
-        /** The sequence number of the most recently committed edit to this entry. */
+       /** The sequence number of the most recently committed edit to this entry. */
         private long sequenceNumber;
 
         private Entry(String key) {
@@ -899,7 +914,7 @@ public final class DiskLruCache implements Closeable {
             return result.toString();
         }
 
-        /**
+       /**
          * Set lengths using decimal numbers like "10123".
          */
         private void setLengths(String[] strings) throws IOException {
